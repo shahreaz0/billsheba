@@ -43,3 +43,7 @@ export type EntryBy = {
   phone: string
   email: string
 }
+
+export type PaymentFilters = {
+  year: string
+}

@@ -27,6 +27,7 @@ import { getPackageListOptions } from "@/hooks/rq/use-packages-query"
 import { getPaymentListOptions } from "@/hooks/rq/use-payment-query"
 import { getSessionsOptions } from "@/hooks/rq/use-sessions-query"
 import { getUserListOptions } from "@/hooks/rq/use-users-query"
+import { usePaymentsStore } from "@/stores/payments-store"
 import { Skeleton } from "./ui/skeleton"
 
 const navMain = [
@@ -94,6 +95,8 @@ export function NavMain() {
   const pathname = usePathname()
   const queryClient = useQueryClient()
 
+  const { paymentFilters } = usePaymentsStore()
+
   const { data: session } = useSession()
 
   if (!session) {
@@ -114,7 +117,7 @@ export function NavMain() {
               key={item.title}
               onMouseEnter={(e) => {
                 if (item.prefetchOptions) {
-                  queryClient.prefetchQuery(item.prefetchOptions() as any)
+                  queryClient.prefetchQuery(item.prefetchOptions(paymentFilters) as any)
                 }
               }}
             >

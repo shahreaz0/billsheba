@@ -25,7 +25,8 @@ interface DataTableToolbarProps<TData> {
 export function PaymentsTableToolbar<TData>({ table }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0
 
-  const { setPaymentMutationType, setIsUpsertPaymentDialogOpen } = usePaymentsStore()
+  const { setPaymentMutationType, setIsUpsertPaymentDialogOpen, paymentFilters } =
+    usePaymentsStore()
   const [searchField, setSearchField] = React.useState("customer")
 
   const currentMonth = months[new Date().getMonth()].value
@@ -70,7 +71,7 @@ export function PaymentsTableToolbar<TData>({ table }: DataTableToolbarProps<TDa
           />
         )}
 
-        {/* <PaymentsYearSelect /> */}
+        <PaymentsYearSelect />
 
         {isFiltered && (
           <Button
