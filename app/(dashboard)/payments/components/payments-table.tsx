@@ -24,8 +24,7 @@ export function PaymentsTable() {
 
   return (
     <div className="space-y-4">
-      hello
-      {/* <Suspense>
+      <Suspense>
         <PaymentsTableToolbar table={table} />
 
         <div className="block md:hidden">
@@ -57,7 +56,7 @@ export function PaymentsTable() {
 
         <PaymentsUpsertDialog />
         <ViewPaymentsDialog />
-      </Suspense> */}
+      </Suspense>
     </div>
   )
 }
