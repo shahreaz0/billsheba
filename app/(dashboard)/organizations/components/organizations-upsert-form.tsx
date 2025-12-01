@@ -1,6 +1,7 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
+import { Save, X } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { z } from "zod/v3"
 import { Button } from "@/components/ui/button"
@@ -395,9 +396,11 @@ export function OrganizationsUpsertForm() {
             variant="outline"
             onClick={() => setIsUpsertOrganizationDialogOpen(false)}
           >
+            <X />
             Cancel
           </Button>
           <Button type="submit" disabled={isLoading}>
+            <Save />
             {isLoading
               ? "Saving..."
               : organizationMutationType === "add"

@@ -1,7 +1,7 @@
 "use client"
 
 import { Table } from "@tanstack/react-table"
-import { X } from "lucide-react"
+import { Plus, X } from "lucide-react"
 import { DataTableSearch } from "@/components/data-table/data-table-search"
 import { DataTableViewOptions } from "@/components/data-table/data-table-view-options"
 import { Button } from "@/components/ui/button"
@@ -54,6 +54,7 @@ export function PackagesTableToolbar<TData>({ table }: DataTableToolbarProps<TDa
         size="sm"
         className="md:mr-2"
       >
+        <Plus />
         Add Package
       </Button>
 

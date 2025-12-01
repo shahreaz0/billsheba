@@ -1,7 +1,7 @@
 "use client"
 
 import { Table } from "@tanstack/react-table"
-import { X } from "lucide-react"
+import { Plus, X } from "lucide-react"
 import * as React from "react"
 import { DataTableFacetedFilter } from "@/components/data-table/data-table-faceted-filter"
 import { DataTableSearch } from "@/components/data-table/data-table-search"
@@ -74,6 +74,7 @@ export function OrganizationsTableToolbar<TData>({
         size="sm"
         className="mr-2 hidden"
       >
+        <Plus />
         Add Organization
       </Button>
 

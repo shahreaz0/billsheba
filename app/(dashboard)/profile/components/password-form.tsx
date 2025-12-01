@@ -1,5 +1,6 @@
 "use client"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { Key } from "lucide-react"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 
@@ -103,6 +104,7 @@ export function ChangePasswordForm() {
               )}
             />
             <Button type="submit" disabled={changePassword.isPending}>
+              <Key />
               {changePassword.isPending ? "Changing password..." : "Change password"}
             </Button>
           </form>

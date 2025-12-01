@@ -1,7 +1,7 @@
 "use client"
 
 import { Table } from "@tanstack/react-table"
-import { X } from "lucide-react"
+import { Plus, X } from "lucide-react"
 import * as React from "react"
 import { DataTableFacetedFilter } from "@/components/data-table/data-table-faceted-filter"
 import { DataTableSearch } from "@/components/data-table/data-table-search"
@@ -88,6 +88,7 @@ export function PaymentsTableToolbar<TData>({ table }: DataTableToolbarProps<TDa
         size="sm"
         className="md:mr-2"
       >
+        <Plus />
         Add Payment
       </Button>
 

@@ -1,6 +1,7 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
+import { Save, X } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { Button } from "@/components/ui/button"
@@ -392,6 +393,7 @@ export function CustomersUpsertForm() {
             variant="outline"
             onClick={() => setIsUpsertCustomerDialogOpen(false)}
           >
+            <X />
             Cancel
           </Button>
           <Button
@@ -399,6 +401,7 @@ export function CustomersUpsertForm() {
             loading={isCreateCustomerPending || isUpdateCustomerPending}
             disabled={isCreateCustomerPending || isUpdateCustomerPending}
           >
+            <Save />
             {customerMutationType === "edit" ? "Update Customer" : "Create Customer"}
           </Button>
         </div>

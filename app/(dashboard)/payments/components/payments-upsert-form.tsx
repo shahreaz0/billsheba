@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { format } from "date-fns"
-import { CalendarIcon } from "lucide-react"
+import { CalendarIcon, Save, X } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { z } from "zod/v3"
 import { Button } from "@/components/ui/button"
@@ -270,6 +270,7 @@ export function PaymentsUpsertForm() {
               setIsUpsertPaymentDialogOpen(false)
             }}
           >
+            <X />
             Cancel
           </Button>
           <Button
@@ -277,6 +278,7 @@ export function PaymentsUpsertForm() {
             loading={isCreatePaymentPending || isUpdatePaymentPending}
             disabled={isCreatePaymentPending || isUpdatePaymentPending}
           >
+            <Save />
             {paymentMutationType === "edit" ? "Update Payment" : "Create Payment"}
           </Button>
         </div>

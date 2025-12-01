@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod"
+import { Save, X } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { Button } from "@/components/ui/button"
@@ -325,6 +326,7 @@ export function UsersUpsertForm() {
               variant="outline"
               onClick={() => setIsUpsertUserDialogOpen(false)}
             >
+              <X />
               Cancel
             </Button>
             <Button
@@ -332,6 +334,7 @@ export function UsersUpsertForm() {
               loading={isCreateUserPending || isUpdateUserPending}
               disabled={isCreateUserPending || isUpdateUserPending}
             >
+              <Save />
               {userMutationType === "edit" ? "Update User" : "Create User"}
             </Button>
           </div>

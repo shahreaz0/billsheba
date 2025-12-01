@@ -1,5 +1,6 @@
 "use client"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { Save } from "lucide-react"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 
@@ -119,6 +120,7 @@ export function ProfileForm() {
               )}
             />
             <Button type="submit" disabled={updateUser.isPending}>
+              <Save />
               {updateUser.isPending ? "Updating..." : "Update profile"}
             </Button>
           </form>

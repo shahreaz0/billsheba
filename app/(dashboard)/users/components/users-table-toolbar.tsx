@@ -1,7 +1,7 @@
 "use client"
 
 import { Table } from "@tanstack/react-table"
-import { X } from "lucide-react"
+import { Plus, X } from "lucide-react"
 import { DataTableFacetedFilter } from "@/components/data-table/data-table-faceted-filter"
 import { DataTableSearch } from "@/components/data-table/data-table-search"
 import { DataTableViewOptions } from "@/components/data-table/data-table-view-options"
@@ -71,6 +71,7 @@ export function UsersTableToolbar<TData>({ table }: DataTableToolbarProps<TData>
           size="sm"
           className="md:mr-2"
         >
+          <Plus />
           Add User
         </Button>
       )}
