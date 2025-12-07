@@ -3,7 +3,7 @@ import DashboardHeader from "@/components/dashboard-header"
 import { MobileBottomNav } from "@/components/mobile-bottom-nav"
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
 
-export default function DashboardLayout({ children }: LayoutProps<"/">) {
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
     <SidebarProvider>
       <AppSidebar />
