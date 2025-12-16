@@ -36,7 +36,7 @@ export function useLogin() {
 
       document.cookie = `token=${data.access_token}; path=/; max-age=${7 * 24 * 60 * 60}; secure; samesite=lax`
 
-      await queryClient.prefetchQuery(getDashboardDataOptions())
+      // await queryClient.prefetchQuery(getDashboardDataOptions())
 
       router.refresh()
       router.push("/")
@@ -129,6 +129,8 @@ export function sessionOptions() {
         .then((res) => res.data)
     },
     staleTime: 10 * 60 * 1000,
+    retry: 0,
+    refetchOnWindowFocus: false,
   })
 }
 
