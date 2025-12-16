@@ -1,17 +1,9 @@
-// "use client"
 import { Clock, CreditCard, DollarSign, Package, UserCheck, Users } from "lucide-react"
-import { cacheLife, cacheTag } from "next/cache"
 import { Card, CardContent, CardTitle } from "@/components/ui/card"
-// import { useSuspenseGetDashboardData } from "@/hooks/rq/use-dashboard-query"
 import { getDashboardData } from "@/lib/apis/auth"
 import { currencyFormtter } from "@/lib/text-formatters"
 
 export async function StatsGrid() {
-  "use cache: private"
-
-  cacheLife("minutes")
-  cacheTag("dashboard")
-
   const data = await getDashboardData()
 
   const stats = [
@@ -28,7 +20,6 @@ export async function StatsGrid() {
       value: data?.active_customers,
       icon: UserCheck,
       color: "text-gray-500",
-      // subtitle: <span className="text-green-600">+2.5%</span>,
       change: "currently active",
     },
     {
@@ -44,7 +35,6 @@ export async function StatsGrid() {
       value: currencyFormtter(Number(data?.total_revenue ?? 0)),
       icon: CreditCard,
       color: "text-gray-500",
-      // subtitle: <span className="text-green-600">+12.3%</span>,
       change: "from paid invoices",
     },
     {
@@ -60,7 +50,15 @@ export async function StatsGrid() {
       value: data?.pending_payments,
       icon: Clock,
       color: "text-gray-500",
-      subtitle: `awaiting payment of ${currencyFormtter(Number(data?.current_month_pending_amount ?? 0))}`,
+      subtitle: "payments pending this month",
+      change: null,
+    },
+    {
+      title: "Pending Revenue",
+      value: currencyFormtter(Number(data?.current_month_pending_amount ?? 0)),
+      icon: Clock,
+      color: "text-gray-500",
+      subtitle: "awaiting payments this month",
       change: null,
     },
     {

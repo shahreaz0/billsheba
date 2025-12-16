@@ -1,4 +1,5 @@
 import "server-only"
+import { cacheLife, cacheTag } from "next/cache"
 import { cookies } from "next/headers"
 import xior from "xior"
 import { Session } from "@/types/auth"
@@ -33,6 +34,11 @@ export async function getSession() {
 }
 
 export async function getDashboardData() {
+  "use cache: private"
+
+  cacheLife("minutes")
+  cacheTag("dashboard")
+
   try {
     const res = await http
       .request<DashboardResponse>({ method: "GET", url: "/dashboard" })
