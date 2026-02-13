@@ -5,20 +5,16 @@ import {
   useQueryClient,
   useSuspenseQuery,
 } from "@tanstack/react-query"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { XiorError } from "xior"
 import { httpV1 } from "@/lib/xior"
 import { Session } from "@/types/auth"
 import { LoginResponse } from "@/types/logins"
 import { RegisterPayload, RegisterResponse } from "@/types/register"
-import { getDashboardDataOptions } from "./use-dashboard-query"
 
 export function useLogin() {
   const router = useRouter()
-  const searchParams = useSearchParams()
-
-  const queryClient = useQueryClient()
 
   return useMutation({
     mutationKey: ["login"],
@@ -34,39 +30,17 @@ export function useLogin() {
     onSuccess: async (data) => {
       toast.success("Successfully logged in")
 
-      document.cookie = `token=${data.access_token}; path=/; max-age=${7 * 24 * 60 * 60}; secure; samesite=lax`
+      console.log(data)
 
-      // await queryClient.prefetchQuery(getDashboardDataOptions())
+      const now = Math.floor(Date.now() / 1000)
+      const accessMaxAge = data.access_token_exp - now
+      const refreshMaxAge = data.refresh_token_exp - now
 
-      router.refresh()
-      router.push("/")
+      document.cookie = `token=${data.access_token}; path=/; max-age=${accessMaxAge}; secure; samesite=lax`
+      document.cookie = `refresh_token=${data.refresh_token}; path=/; max-age=${refreshMaxAge}; secure; samesite=lax`
 
-      // window.location.href = "/dashboard"
-    },
-  })
-}
-
-export function useLogout() {
-  const router = useRouter()
-  const queryClient = useQueryClient()
-
-  return useMutation({
-    mutationKey: ["logout"],
-    mutationFn: async () => {
-      if (typeof window !== "undefined") {
-        localStorage.clear()
-        document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT"
-      }
-    },
-    onSuccess: () => {
-      queryClient.clear()
-      toast.success("Successfully logged out")
+      // router.refresh()
       // router.push("/")
-
-      window.location.href = "/"
-    },
-    onError: () => {
-      toast.error("Logout failed")
     },
   })
 }
