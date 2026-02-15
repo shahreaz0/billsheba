@@ -1,7 +1,6 @@
-import xior from "xior"
 import { httpV1 } from "./lib/xior"
 
-function getToken() {
+async function getToken() {
   return httpV1
     .request({
       method: "post",

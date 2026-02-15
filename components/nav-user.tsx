@@ -18,7 +18,8 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
-import { useLogout, useSession } from "@/hooks/rq/use-auth-query"
+import { useSession } from "@/hooks/rq/use-auth-query"
+import { logout } from "@/lib/auth-utils"
 import { generateAvatarUrl } from "@/lib/utils"
 import { Skeleton } from "./ui/skeleton"
 
@@ -28,8 +29,8 @@ export function UserInfoSkeleton() {
       <Skeleton className="h-8 w-8 rounded-lg" />
 
       <div className="grid flex-1 text-left text-sm leading-tight">
-        <Skeleton className="h-4 w-[120px]" /> {/* Name */}
-        <Skeleton className="h-3 w-[180px]" /> {/* Email */}
+        <Skeleton className="h-4 w-[120px]" />
+        <Skeleton className="h-3 w-[180px]" />
       </div>
     </div>
   )
@@ -42,10 +43,8 @@ export function NavUser() {
 
   const name = `${session?.first_name || ""} ${session?.last_name || ""}`
 
-  const { mutate: triggerLogout } = useLogout()
-
   function logoutHandler() {
-    triggerLogout()
+    logout()
   }
 
   return (

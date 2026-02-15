@@ -17,7 +17,7 @@ export function PackagesTable() {
 
   const { table, render } = useDataTable({
     columns,
-    data: packageData?.results!,
+    data: packageData?.results,
     loading: isLoading,
   })
 
@@ -39,7 +39,7 @@ export function PackagesTable() {
             }
           }}
           renderRowActions={(row) => <PackagesTableRowActions row={row} />}
-          onItemClick={(item, row) => {
+          onItemClick={(_item, row) => {
             if (row) {
               setIsViewPackageDialogOpen(true)
               setSelectedPackage(row.original)

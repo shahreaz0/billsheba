@@ -115,7 +115,7 @@ export function NavMain() {
           .map((item) => (
             <SidebarMenuItem
               key={item.title}
-              onMouseEnter={(e) => {
+              onMouseEnter={() => {
                 if (item.prefetchOptions) {
                   queryClient.prefetchQuery(item.prefetchOptions(paymentFilters) as any)
                 }

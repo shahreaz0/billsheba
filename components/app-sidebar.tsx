@@ -1,4 +1,4 @@
-import { ComponentProps, Suspense } from "react"
+import { type ComponentProps, Suspense } from "react"
 import { ErrorBoundary } from "react-error-boundary"
 import { NavMain } from "@/components/nav-main"
 import { NavUser } from "@/components/nav-user"

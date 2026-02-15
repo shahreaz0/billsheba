@@ -6,10 +6,9 @@ import {
   useSuspenseQuery,
 } from "@tanstack/react-query"
 import { toast } from "sonner"
-import { XiorError } from "xior"
 import { httpV1 } from "@/lib/xior"
-import { CreateCustomer, Customer, CustomerResponse } from "@/types/customers"
-import { PaymentResponse } from "@/types/payments"
+import type { CreateCustomer, Customer, CustomerResponse } from "@/types/customers"
+import type { PaymentResponse } from "@/types/payments"
 
 export function getCustomerListOptions() {
   return queryOptions({
@@ -65,7 +64,7 @@ function updateCustomerOptons() {
         .then((res) => res.data)
     },
 
-    onSuccess: (data, con) => {
+    onSuccess: () => {
       toast.success("Customer updated successfully")
     },
 
@@ -87,7 +86,7 @@ function deleteCustomerOptions() {
         .then((res) => res.data)
     },
 
-    onSuccess: (data) => {
+    onSuccess: () => {
       toast.success("Customer deleted successfully")
     },
 

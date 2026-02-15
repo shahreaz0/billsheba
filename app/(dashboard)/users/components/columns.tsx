@@ -1,10 +1,10 @@
 "use client"
 
-import { ColumnDef } from "@tanstack/react-table"
+import type { ColumnDef } from "@tanstack/react-table"
 import { DataTableColumnHeader } from "@/components/data-table/data-table-column-header"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { generateAvatarUrl, getInitials } from "@/lib/utils"
-import { User } from "@/types/users"
+import type { User } from "@/types/users"
 import { genders, kinds } from "../data/data"
 import { UsersTableRowActions } from "./users-table-row-actions"
 

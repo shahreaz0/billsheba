@@ -1,4 +1,4 @@
-import { Metadata } from "next"
+import type { Metadata } from "next"
 import { PackagesTable } from "./components/packages-table"
 
 export const metadata: Metadata = {

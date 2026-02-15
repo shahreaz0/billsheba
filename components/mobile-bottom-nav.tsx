@@ -32,7 +32,6 @@ export function MobileBottomNav() {
     <nav
       aria-label="Primary mobile"
       className="fixed inset-x-0 bottom-0 z-50 block md:hidden"
-      role="navigation"
     >
       <div className="mx-auto max-w-screen-lg px-safe w-full">
         <div className="backdrop-blur-sm bg-card/80 border-t border-border flex justify-between items-center px-4 py-2 rounded-t-lg">

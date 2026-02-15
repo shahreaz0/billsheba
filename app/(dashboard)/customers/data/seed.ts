@@ -1,6 +1,6 @@
+import fs from "node:fs"
+import path from "node:path"
 import { faker } from "@faker-js/faker"
-import fs from "fs"
-import path from "path"
 
 // import { accessLevels } from "./data"
 

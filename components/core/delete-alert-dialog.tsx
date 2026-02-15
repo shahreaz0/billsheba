@@ -1,5 +1,5 @@
 import { Loader } from "lucide-react"
-import { MouseEvent } from "react"
+import type { MouseEvent } from "react"
 import {
   AlertDialog,
   AlertDialogAction,

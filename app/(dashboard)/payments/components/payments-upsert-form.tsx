@@ -141,7 +141,7 @@ export function PaymentsUpsertForm() {
                   </FormControl>
                   <SelectContent>
                     {paymentMethods.map((pm) => (
-                      <SelectItem value={pm.value}>
+                      <SelectItem key={pm.value} value={pm.value}>
                         <pm.icon /> {pm.label}
                       </SelectItem>
                     ))}

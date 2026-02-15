@@ -8,7 +8,6 @@ import { useOrganizationsStore } from "@/stores/organizations-store"
 import { columns } from "./columns"
 import { OrganizationsTableRowActions } from "./organizations-table-row-actions"
 import { UpsertOrganizationsDialog } from "./upsert-organizations-dialog"
-import { ViewOrganization } from "./view-organization"
 import { ViewOrganizationsDialog } from "./view-organizations-dialog"
 
 export function OrganizationsTable() {
@@ -18,7 +17,7 @@ export function OrganizationsTable() {
 
   const { table, render } = useDataTable({
     columns,
-    data: organizationsData?.results!,
+    data: organizationsData?.results,
     loading: isLoading,
     pagination: false,
   })
@@ -39,7 +38,7 @@ export function OrganizationsTable() {
             }
           }}
           renderRowActions={(row) => <OrganizationsTableRowActions row={row} />}
-          onItemClick={(item, row) => {
+          onItemClick={(_item, row) => {
             if (row) {
               setIsViewOrganizationDialogOpen(true)
               setSelectedOrganization(row.original)

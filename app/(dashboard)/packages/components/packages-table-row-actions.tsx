@@ -1,8 +1,8 @@
 "use client"
 
-import { Row } from "@tanstack/react-table"
+import type { Row } from "@tanstack/react-table"
 import { MoreHorizontal } from "lucide-react"
-import React, { useState } from "react"
+import { useState } from "react"
 import { DeleteAlertDialog } from "@/components/core/delete-alert-dialog"
 import { Button } from "@/components/ui/button"
 import {
@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { useDeletePackage } from "@/hooks/rq/use-packages-query"
 import { usePackagesStore } from "@/stores/packages-store"
-import { Package } from "@/types/packages"
+import type { Package } from "@/types/packages"
 
 interface PackagesTableRowActionsProps {
   row: Row<Package>

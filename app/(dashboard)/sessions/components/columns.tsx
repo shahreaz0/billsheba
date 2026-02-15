@@ -1,10 +1,10 @@
 "use client"
 
-import { ColumnDef } from "@tanstack/react-table"
+import type { ColumnDef } from "@tanstack/react-table"
 import { DataTableColumnHeader } from "@/components/data-table/data-table-column-header"
 import { Badge } from "@/components/ui/badge"
 import { cn, formatUptime } from "@/lib/utils"
-import { Session } from "@/types/sessions"
+import type { Session } from "@/types/sessions"
 
 export const columns: ColumnDef<Session>[] = [
   {

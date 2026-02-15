@@ -1,4 +1,4 @@
-import { Session } from "./schema"
+import type { Session } from "./schema"
 
 export const sessions: Session[] = [
   {

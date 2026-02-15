@@ -44,7 +44,7 @@ export function ViewPaymentsContent() {
             </p>
           </div>
         </div>
-        <Badge className={statusConfig.className + " text-xs px-2 py-1"}>
+        <Badge className={`${statusConfig.className} text-xs px-2 py-1`}>
           <StatusIcon className="h-3 w-3 mr-1" />
           {statusConfig.label}
         </Badge>

@@ -1,6 +1,6 @@
 "use client"
 
-import { Table } from "@tanstack/react-table"
+import type { Table } from "@tanstack/react-table"
 import { SearchIcon } from "lucide-react"
 import { useEffect, useState } from "react"
 
@@ -32,7 +32,7 @@ export function DataTableSearch<TData>({
     }, delay)
 
     return () => clearTimeout(timeout)
-  }, [inputValue, searchField, table])
+  }, [inputValue, searchField, table, delay])
 
   return (
     <InputGroup className={cn("w-full md:w-[280px] h-8", className)}>

@@ -1,6 +1,6 @@
 import { createStore } from "stan-js"
 
-import { Package } from "@/types/packages"
+import type { Package } from "@/types/packages"
 
 export const { useStore: usePackagesStore, reset: resetPacksgesStore } = createStore({
   isViewPackageDialogOpen: false,

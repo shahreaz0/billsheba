@@ -1,4 +1,4 @@
-import { Column } from "@tanstack/react-table"
+import type { Column } from "@tanstack/react-table"
 import { Check, PlusCircle } from "lucide-react"
 import * as React from "react"
 import { Badge } from "@/components/ui/badge"
@@ -38,6 +38,7 @@ export function DataTableFacetedFilter<TData, TValue>({
   const [hasInitialized, setHasInitialized] = React.useState(false)
 
   // Initialize filter with defaultValues on mount
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <refactor>
   React.useEffect(() => {
     if (!hasInitialized && column) {
       const filterValues = column.getFilterValue() as string[] | undefined

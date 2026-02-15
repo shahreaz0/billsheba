@@ -43,14 +43,6 @@ export function formatUptime(uptime: string): string {
     return uptime // Return original if can't parse
   }
 
-  const timeMap: Record<string, string> = {
-    w: "w",
-    d: "d",
-    h: "h",
-    m: "m",
-    s: "s",
-  }
-
   const formattedParts: string[] = []
 
   parts.forEach((part) => {

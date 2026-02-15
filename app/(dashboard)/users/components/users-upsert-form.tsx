@@ -100,8 +100,6 @@ export function UsersUpsertForm() {
     },
   })
 
-  const role = session?.kind
-
   function onSubmit(values: z.infer<typeof resolverSchema>) {
     if (userMutationType === "edit" && selectedUser?.uid) {
       triggerUpdateUser(
@@ -273,19 +271,15 @@ export function UsersUpsertForm() {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {userMutationType === "edit" && selectedUser.kind === "ADMIN" ? (
-                        <>
-                          {kinds
+                      {userMutationType === "edit" && selectedUser.kind === "ADMIN"
+                        ? kinds
                             .filter((k) => ["ADMIN"].includes(k.value))
                             .map((k) => (
                               <SelectItem key={k.value} value={k.value}>
                                 <k.icon className="mr-2 h-4 w-4 inline-block" /> {k.label}
                               </SelectItem>
-                            ))}
-                        </>
-                      ) : (
-                        <>
-                          {kinds
+                            ))
+                        : kinds
                             .filter(
                               (k) =>
                                 !["SUPER_ADMIN", "ADMIN", "OWNER", "CUSTOMER"].includes(
@@ -297,8 +291,6 @@ export function UsersUpsertForm() {
                                 <k.icon className="mr-2 h-4 w-4 inline-block" /> {k.label}
                               </SelectItem>
                             ))}
-                        </>
-                      )}
                     </SelectContent>
                   </Select>
                   <FormMessage />

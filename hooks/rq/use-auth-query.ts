@@ -2,23 +2,19 @@ import {
   queryOptions,
   useMutation,
   useQuery,
-  useQueryClient,
   useSuspenseQuery,
 } from "@tanstack/react-query"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { XiorError } from "xior"
+import { setAuthCookies } from "@/lib/auth-utils"
 import { httpV1 } from "@/lib/xior"
-import { Session } from "@/types/auth"
-import { LoginResponse } from "@/types/logins"
-import { RegisterPayload, RegisterResponse } from "@/types/register"
-import { getDashboardDataOptions } from "./use-dashboard-query"
+import type { Session } from "@/types/auth"
+import type { LoginResponse } from "@/types/logins"
+import type { RegisterPayload, RegisterResponse } from "@/types/register"
 
 export function useLogin() {
   const router = useRouter()
-  const searchParams = useSearchParams()
-
-  const queryClient = useQueryClient()
 
   return useMutation({
     mutationKey: ["login"],
@@ -34,39 +30,10 @@ export function useLogin() {
     onSuccess: async (data) => {
       toast.success("Successfully logged in")
 
-      document.cookie = `token=${data.access_token}; path=/; max-age=${7 * 24 * 60 * 60}; secure; samesite=lax`
-
-      // await queryClient.prefetchQuery(getDashboardDataOptions())
+      setAuthCookies(data)
 
       router.refresh()
       router.push("/")
-
-      // window.location.href = "/dashboard"
-    },
-  })
-}
-
-export function useLogout() {
-  const router = useRouter()
-  const queryClient = useQueryClient()
-
-  return useMutation({
-    mutationKey: ["logout"],
-    mutationFn: async () => {
-      if (typeof window !== "undefined") {
-        localStorage.clear()
-        document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT"
-      }
-    },
-    onSuccess: () => {
-      queryClient.clear()
-      toast.success("Successfully logged out")
-      // router.push("/")
-
-      window.location.href = "/"
-    },
-    onError: () => {
-      toast.error("Logout failed")
     },
   })
 }

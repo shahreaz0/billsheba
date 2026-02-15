@@ -10,7 +10,7 @@ import ProfileHeader from "./components/profile-header"
 export default function ProfilePage() {
   return (
     <div>
-      <ErrorBoundary fallback={<></>}>
+      <ErrorBoundary fallback={null}>
         <Suspense
           fallback={
             <div className="flex gap-5">
