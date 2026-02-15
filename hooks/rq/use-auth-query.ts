@@ -12,6 +12,7 @@ import { httpV1 } from "@/lib/xior"
 import { Session } from "@/types/auth"
 import { LoginResponse } from "@/types/logins"
 import { RegisterPayload, RegisterResponse } from "@/types/register"
+import { setAuthCookies } from "@/lib/auth-utils"
 
 export function useLogin() {
   const router = useRouter()
@@ -30,17 +31,10 @@ export function useLogin() {
     onSuccess: async (data) => {
       toast.success("Successfully logged in")
 
-      console.log(data)
+      setAuthCookies(data)
 
-      const now = Math.floor(Date.now() / 1000)
-      const accessMaxAge = data.access_token_exp - now
-      const refreshMaxAge = data.refresh_token_exp - now
-
-      document.cookie = `token=${data.access_token}; path=/; max-age=${accessMaxAge}; secure; samesite=lax`
-      document.cookie = `refresh_token=${data.refresh_token}; path=/; max-age=${refreshMaxAge}; secure; samesite=lax`
-
-      // router.refresh()
-      // router.push("/")
+      router.refresh()
+      router.push("/")
     },
   })
 }

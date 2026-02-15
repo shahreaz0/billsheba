@@ -19,13 +19,13 @@ export function proxy(request: NextRequest) {
 
   const isProtected = protectedRoutes.some((route) => pathname.startsWith(route))
 
-  // if (isProtected && !token) {
-  //   return NextResponse.redirect(new URL("/login", request.url))
-  // }
+  if (isProtected && !token) {
+    return NextResponse.redirect(new URL("/login", request.url))
+  }
 
-  // if (token && ["/", "/login"].includes(pathname)) {
-  //   return NextResponse.redirect(new URL("/dashboard", request.url))
-  // }
+  if (token && ["/", "/login"].includes(pathname)) {
+    return NextResponse.redirect(new URL("/dashboard", request.url))
+  }
 
   return NextResponse.next()
 }

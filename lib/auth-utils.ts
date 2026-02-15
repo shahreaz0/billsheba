@@ -9,6 +9,22 @@ function getCookie(name: string) {
   return null
 }
 
+export function setAuthCookies(data: {
+  access_token: string
+  access_token_exp: number
+  refresh_token?: string
+  refresh_token_exp?: number
+}) {
+  const now = Math.floor(Date.now() / 1000)
+  const accessMaxAge = data.access_token_exp - now
+  document.cookie = `token=${data.access_token}; path=/; max-age=${accessMaxAge}; secure; samesite=lax`
+
+  if (data.refresh_token && data.refresh_token_exp) {
+    const refreshMaxAge = data.refresh_token_exp - now
+    document.cookie = `refresh_token=${data.refresh_token}; path=/; max-age=${refreshMaxAge}; secure; samesite=lax`
+  }
+}
+
 export function logout() {
   console.log("Logging out...")
   localStorage.clear()
@@ -22,14 +38,11 @@ export function logout() {
 export function shouldRefresh(response: XiorResponse) {
   const token = getCookie("token")
 
-  console.log({ token })
-
   return Boolean(token && response?.status && [401, 403].includes(response.status))
 }
 
 export async function attemptRefresh() {
   try {
-    const accessToken = getCookie("token")
     const refreshToken = getCookie("refresh_token")
 
     const { data } = await xior.request<{
@@ -38,21 +51,12 @@ export async function attemptRefresh() {
     }>({
       method: "POST",
       url: "https://api.billsheba.com/api/v1/users/login/refresh",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/json",
-      },
       data: {
         refresh_token: refreshToken,
       },
     })
 
-    const now = Math.floor(Date.now() / 1000)
-    const accessMaxAge = data.access_token_exp - now
-
-    console.log(data)
-
-    document.cookie = `token=${data.access_token}; path=/; max-age=${accessMaxAge}; secure; samesite=lax`
+    setAuthCookies(data)
   } catch (error) {
     logout()
   }
