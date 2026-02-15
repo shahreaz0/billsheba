@@ -29,8 +29,8 @@ export function UserInfoSkeleton() {
       <Skeleton className="h-8 w-8 rounded-lg" />
 
       <div className="grid flex-1 text-left text-sm leading-tight">
-        <Skeleton className="h-4 w-[120px]" /> 
-        <Skeleton className="h-3 w-[180px]" /> 
+        <Skeleton className="h-4 w-[120px]" />
+        <Skeleton className="h-3 w-[180px]" />
       </div>
     </div>
   )

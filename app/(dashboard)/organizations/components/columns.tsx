@@ -1,13 +1,13 @@
 "use client"
 
-import { ColumnDef } from "@tanstack/react-table"
+import type { ColumnDef } from "@tanstack/react-table"
 import { format } from "date-fns"
 import { BadgeCheckIcon, BadgeXIcon, Globe, Mail, Phone } from "lucide-react"
 import { DataTableColumnHeader } from "@/components/data-table/data-table-column-header"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { cn, generateAvatarUrl, getInitials } from "@/lib/utils"
-import { Organization } from "@/types/organizations"
+import type { Organization } from "@/types/organizations"
 import { OrganizationsTableRowActions } from "./organizations-table-row-actions"
 
 export const columns: ColumnDef<Organization>[] = [

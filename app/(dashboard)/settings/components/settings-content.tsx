@@ -9,7 +9,6 @@ import {
   Server,
   Settings,
   Shield,
-  User,
   Users,
 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"

@@ -17,7 +17,7 @@ export function CustomersTable() {
 
   const { table, render } = useDataTable({
     columns,
-    data: customersData?.results!,
+    data: customersData?.results,
     loading: isLoading,
   })
 
@@ -40,7 +40,7 @@ export function CustomersTable() {
             }
           }}
           renderRowActions={(row) => <CustomersTableRowActions row={row} />}
-          onItemClick={(item, row) => {
+          onItemClick={(_item, row) => {
             if (row) {
               setIsViewCustomerDialogOpen(true)
               setSelectedCustomer(row.original)

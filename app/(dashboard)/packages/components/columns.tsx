@@ -1,8 +1,8 @@
 "use client"
 
-import { ColumnDef } from "@tanstack/react-table"
+import type { ColumnDef } from "@tanstack/react-table"
 import { DataTableColumnHeader } from "@/components/data-table/data-table-column-header"
-import { Package } from "@/types/packages"
+import type { Package } from "@/types/packages"
 import { PackagesTableRowActions } from "./packages-table-row-actions"
 
 export const columns: ColumnDef<Package>[] = [

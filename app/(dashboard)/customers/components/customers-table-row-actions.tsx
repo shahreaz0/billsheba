@@ -1,6 +1,6 @@
 "use client"
 
-import { Row } from "@tanstack/react-table"
+import type { Row } from "@tanstack/react-table"
 import { MoreHorizontal } from "lucide-react"
 import { useOptimistic, useState } from "react"
 import { DeleteAlertDialog } from "@/components/core/delete-alert-dialog"
@@ -24,7 +24,7 @@ import {
   useToggleCustomerStatus,
 } from "@/hooks/rq/use-customers-query"
 import { useCustomersStore } from "@/stores/customers-store"
-import { Customer } from "@/types/customers"
+import type { Customer } from "@/types/customers"
 import { customerStatus } from "../data/data"
 
 interface CustomersTableRowActionsProps {
@@ -103,7 +103,7 @@ export function CustomersTableRowActions({ row }: CustomersTableRowActionsProps)
                   }}
                 >
                   {customerStatus.map((s) => (
-                    <DropdownMenuRadioItem value={s.value}>
+                    <DropdownMenuRadioItem value={s.value} key={s.value}>
                       <s.icon /> {s.label}
                     </DropdownMenuRadioItem>
                   ))}

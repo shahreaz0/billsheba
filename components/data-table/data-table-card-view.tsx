@@ -1,6 +1,6 @@
 "use client"
 
-import { type Row, type Table } from "@tanstack/react-table"
+import type { Row, Table } from "@tanstack/react-table"
 import * as React from "react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
@@ -80,7 +80,7 @@ export function DataTableCardView<TData>({
             className={
               onItemClick ? "cursor-pointer hover:bg-muted/50 transition-colors" : ""
             }
-            onClick={(e) => {
+            onClick={() => {
               onItemClick?.(item, row)
             }}
           >

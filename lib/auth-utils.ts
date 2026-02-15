@@ -1,13 +1,6 @@
 import { toast } from "sonner"
 import xior, { type XiorResponse } from "xior"
-
-function getCookie(name: string) {
-  if (typeof document === "undefined") return null
-  const value = `; ${document.cookie}`
-  const parts = value.split(`; ${name}=`)
-  if (parts.length === 2) return parts.pop()?.split(";").shift()
-  return null
-}
+import { cookie } from "./cookie"
 
 export function setAuthCookies(data: {
   access_token: string
@@ -17,33 +10,33 @@ export function setAuthCookies(data: {
 }) {
   const now = Math.floor(Date.now() / 1000)
   const accessMaxAge = data.access_token_exp - now
-  document.cookie = `token=${data.access_token}; path=/; max-age=${accessMaxAge}; secure; samesite=lax`
+  cookie.set("token", data.access_token, { maxAge: accessMaxAge })
 
   if (data.refresh_token && data.refresh_token_exp) {
     const refreshMaxAge = data.refresh_token_exp - now
-    document.cookie = `refresh_token=${data.refresh_token}; path=/; max-age=${refreshMaxAge}; secure; samesite=lax`
+    cookie.set("refresh_token", data.refresh_token, { maxAge: refreshMaxAge })
   }
 }
 
 export function logout() {
   console.log("Logging out...")
   localStorage.clear()
-  document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT"
-  document.cookie = "refresh_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT"
+  cookie.remove("token")
+  cookie.remove("refresh_token")
 
   toast.success("Successfully logged out")
   window.location.href = "/"
 }
 
 export function shouldRefresh(response: XiorResponse) {
-  const token = getCookie("token")
+  const token = cookie.get("token")
 
   return Boolean(token && response?.status && [401, 403].includes(response.status))
 }
 
 export async function attemptRefresh() {
   try {
-    const refreshToken = getCookie("refresh_token")
+    const refreshToken = cookie.get("refresh_token")
 
     const { data } = await xior.request<{
       access_token: string
@@ -57,7 +50,7 @@ export async function attemptRefresh() {
     })
 
     setAuthCookies(data)
-  } catch (error) {
+  } catch (_error) {
     logout()
   }
 }

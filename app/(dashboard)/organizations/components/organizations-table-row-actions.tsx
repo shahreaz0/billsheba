@@ -1,21 +1,19 @@
 "use client"
 
-import { Row } from "@tanstack/react-table"
+import type { Row } from "@tanstack/react-table"
 import { MoreHorizontal } from "lucide-react"
-import React, { useState } from "react"
+import { useState } from "react"
 import { DeleteAlertDialog } from "@/components/core/delete-alert-dialog"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useDeleteOrganization } from "@/hooks/rq/use-organizations-query"
 import { useOrganizationsStore } from "@/stores/organizations-store"
-import { Organization } from "@/types/organizations"
+import type { Organization } from "@/types/organizations"
 
 // import { organizationStatus } from "../data/data"
 
@@ -32,8 +30,6 @@ export function OrganizationsTableRowActions({ row }: OrganizationsTableRowActio
   } = useOrganizationsStore()
 
   const { mutate: triggerDeleteOrganization } = useDeleteOrganization()
-
-  const [position, setPosition] = React.useState(row.original.subscription_status)
 
   const [open, setOpen] = useState(false)
 

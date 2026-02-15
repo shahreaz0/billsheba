@@ -5,9 +5,8 @@ import {
   useQuery,
 } from "@tanstack/react-query"
 import { toast } from "sonner"
-import { XiorError } from "xior"
 import { httpV1 } from "@/lib/xior"
-import {
+import type {
   CreateOrganization,
   Organization,
   OrganizationResponse,
@@ -44,7 +43,7 @@ function createOrganizationOptions() {
         .then((res) => res.data)
     },
 
-    onSuccess: (data, con) => {
+    onSuccess: () => {
       toast.success("Organization created successfully")
     },
 
@@ -73,7 +72,7 @@ function updateOrganizationOptions() {
         .then((res) => res.data)
     },
 
-    onSuccess: (data, con) => {
+    onSuccess: () => {
       toast.success("Organization updated successfully")
     },
 
@@ -95,7 +94,7 @@ function deleteOrganizationOptions() {
         .then((res) => res.data)
     },
 
-    onSuccess: (data) => {
+    onSuccess: () => {
       toast.success("Organization deleted successfully")
     },
 

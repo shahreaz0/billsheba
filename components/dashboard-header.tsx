@@ -1,6 +1,5 @@
 "use client"
 
-import Link from "next/link"
 import { usePathname } from "next/navigation"
 import React from "react"
 import {
@@ -46,7 +45,7 @@ export default function DashboardHeader() {
             </BreadcrumbItem>
 
             {rest.map((seg, idx) => {
-              const href = "/" + ["dashboard", ...rest.slice(0, idx + 1)].join("/")
+              const href = `/${["dashboard", ...rest.slice(0, idx + 1)].join("/")}`
               const label = titleCase(seg)
               const isLast = idx === rest.length - 1
 

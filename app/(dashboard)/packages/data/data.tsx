@@ -4,11 +4,6 @@ import {
   AnchorIcon,
   BadgeCheckIcon,
   BadgeXIcon,
-  DollarSign,
-  Gavel,
-  Lock,
-  LockOpen,
-  Megaphone,
   NetworkIcon,
   WorkflowIcon,
 } from "lucide-react"

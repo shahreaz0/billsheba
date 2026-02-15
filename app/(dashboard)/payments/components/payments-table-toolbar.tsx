@@ -1,6 +1,6 @@
 "use client"
 
-import { Table } from "@tanstack/react-table"
+import type { Table } from "@tanstack/react-table"
 import { Plus, X } from "lucide-react"
 import * as React from "react"
 import { DataTableFacetedFilter } from "@/components/data-table/data-table-faceted-filter"
@@ -25,8 +25,7 @@ interface DataTableToolbarProps<TData> {
 export function PaymentsTableToolbar<TData>({ table }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0
 
-  const { setPaymentMutationType, setIsUpsertPaymentDialogOpen, paymentFilters } =
-    usePaymentsStore()
+  const { setPaymentMutationType, setIsUpsertPaymentDialogOpen } = usePaymentsStore()
   const [searchField, setSearchField] = React.useState("customer")
 
   const currentMonth = months[new Date().getMonth()].value

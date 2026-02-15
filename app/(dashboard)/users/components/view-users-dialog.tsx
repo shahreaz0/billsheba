@@ -1,4 +1,3 @@
-import { View } from "lucide-react"
 import {
   Dialog,
   DialogContent,

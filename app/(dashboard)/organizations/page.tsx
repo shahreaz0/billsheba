@@ -1,4 +1,4 @@
-import { Metadata } from "next"
+import type { Metadata } from "next"
 import { OrganizationsTable } from "./components/organizations-table"
 
 export const metadata: Metadata = {

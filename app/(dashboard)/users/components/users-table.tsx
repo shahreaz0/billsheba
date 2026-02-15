@@ -17,7 +17,7 @@ export function UsersTable() {
 
   const { table, render } = useDataTable({
     columns,
-    data: usersData?.results!,
+    data: usersData?.results,
     loading: isLoading,
   })
 
@@ -39,7 +39,7 @@ export function UsersTable() {
             }
           }}
           renderRowActions={(row) => <UsersTableRowActions row={row} />}
-          onItemClick={(item, row) => {
+          onItemClick={(_item, row) => {
             if (row) {
               setIsViewUserDialogOpen(true)
               setSelectedUser(row.original)

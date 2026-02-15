@@ -1,6 +1,6 @@
 import { queryOptions, useQuery, useSuspenseQuery } from "@tanstack/react-query"
 import { httpV1 } from "@/lib/xior"
-import { DashboardResponse } from "@/types/dashboard"
+import type { DashboardResponse } from "@/types/dashboard"
 
 export function getDashboardDataOptions() {
   return queryOptions({

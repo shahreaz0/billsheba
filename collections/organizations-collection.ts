@@ -2,7 +2,7 @@ import { createCollection } from "@tanstack/db"
 import { queryCollectionOptions } from "@tanstack/query-db-collection"
 import { httpV1 } from "@/lib/xior"
 import { getQueryClient } from "@/providers/rq-provider"
-import { Organization, OrganizationResponse } from "@/types/organizations"
+import type { OrganizationResponse } from "@/types/organizations"
 
 export const organizationsCollection = createCollection(
   queryCollectionOptions({

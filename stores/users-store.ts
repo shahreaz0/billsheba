@@ -1,5 +1,5 @@
 import { createStore } from "stan-js"
-import { User } from "@/types/users"
+import type { User } from "@/types/users"
 
 export const { useStore: useUsersStore, reset: resetUsersStore } = createStore({
   isViewUserDialogOpen: false,

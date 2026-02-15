@@ -14,7 +14,7 @@ export function SessionsTable() {
 
   const { table, render } = useDataTable({
     columns,
-    data: sessionsData?.sessions!,
+    data: sessionsData?.sessions,
     loading: isLoading,
   })
 
@@ -37,7 +37,7 @@ export function SessionsTable() {
             }
           }}
           renderRowActions={() => null}
-          onItemClick={(item, row) => {
+          onItemClick={(_item, row) => {
             if (row) {
               setIsViewSessionDialogOpen(true)
               setSelectedSession(row.original)

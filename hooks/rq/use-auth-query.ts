@@ -2,17 +2,16 @@ import {
   queryOptions,
   useMutation,
   useQuery,
-  useQueryClient,
   useSuspenseQuery,
 } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { XiorError } from "xior"
-import { httpV1 } from "@/lib/xior"
-import { Session } from "@/types/auth"
-import { LoginResponse } from "@/types/logins"
-import { RegisterPayload, RegisterResponse } from "@/types/register"
 import { setAuthCookies } from "@/lib/auth-utils"
+import { httpV1 } from "@/lib/xior"
+import type { Session } from "@/types/auth"
+import type { LoginResponse } from "@/types/logins"
+import type { RegisterPayload, RegisterResponse } from "@/types/register"
 
 export function useLogin() {
   const router = useRouter()

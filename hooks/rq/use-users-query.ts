@@ -7,7 +7,7 @@ import {
 import { toast } from "sonner"
 import { XiorError } from "xior"
 import { httpV1 } from "@/lib/xior"
-import { User, UserResponse } from "@/types/users"
+import type { User, UserResponse } from "@/types/users"
 
 export function getUserListOptions() {
   return queryOptions({

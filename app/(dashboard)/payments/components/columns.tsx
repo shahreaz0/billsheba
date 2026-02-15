@@ -1,12 +1,12 @@
 "use client"
 
-import { ColumnDef } from "@tanstack/react-table"
+import type { ColumnDef } from "@tanstack/react-table"
 import { CircleCheckIcon, CircleXIcon } from "lucide-react"
 import { DataTableColumnHeader } from "@/components/data-table/data-table-column-header"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { cn, generateAvatarUrl, getInitials } from "@/lib/utils"
-import { Payment } from "@/types/payments"
+import type { Payment } from "@/types/payments"
 import { paymentMethods } from "../data/data"
 import { PaymentsTableRowActions } from "./payments-table-row-actions"
 

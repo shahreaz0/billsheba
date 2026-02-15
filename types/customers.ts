@@ -27,7 +27,7 @@ export type Customer = {
   credentials: Credentials
 }
 
-export type Credentials = {}
+export type Credentials = object
 
 export type Package = {
   id: number

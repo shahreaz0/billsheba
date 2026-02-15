@@ -7,7 +7,7 @@ import {
 import { toast } from "sonner"
 import { httpV1 } from "@/lib/xior"
 import { usePaymentsStore } from "@/stores/payments-store"
-import { Payment, PaymentFilters, PaymentResponse } from "@/types/payments"
+import type { Payment, PaymentFilters, PaymentResponse } from "@/types/payments"
 
 export function getPaymentListOptions(filters: PaymentFilters) {
   return queryOptions({

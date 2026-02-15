@@ -1,4 +1,4 @@
-import { Session } from "./schema"
+import type { Session } from "./schema"
 import { sessions } from "./seed"
 
 // Simulate API delay

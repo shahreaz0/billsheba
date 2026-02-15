@@ -1,13 +1,13 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.2.2/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.4.0/schema.json",
   "vcs": {
-    "enabled": false,
+    "enabled": true,
     "clientKind": "git",
-    "useIgnoreFile": false
+    "useIgnoreFile": true
   },
   "files": {
     "ignoreUnknown": false,
-    "includes": ["**", "!ui", "!node_modules", "!dist", "!build", "!.next"]
+    "includes": ["**", "!node_modules", "!dist", "!build", "!.next", "!components/ui"]
   },
   "formatter": {
     "enabled": true,
@@ -17,7 +17,6 @@
   },
   "assist": { "actions": { "source": { "organizeImports": "on" } } },
   "linter": {
-    "includes": ["!ui"],
     "enabled": true,
     "rules": {
       "recommended": true,
@@ -25,13 +24,13 @@
         "noUnusedVariables": "warn",
         "noUnusedImports": {
           "level": "warn",
-          "fix": "none",
-          "options": {}
+          "fix": "safe"
         },
         "noUnreachable": "warn"
       },
       "suspicious": {
-        "noExplicitAny": "warn"
+        "noExplicitAny": "warn",
+        "noArrayIndexKey": "warn"
       }
     }
   },
@@ -39,6 +38,11 @@
     "formatter": {
       "quoteStyle": "double",
       "semicolons": "asNeeded"
+    }
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
     }
   }
 }

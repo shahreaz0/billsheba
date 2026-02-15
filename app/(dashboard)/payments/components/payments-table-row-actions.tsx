@@ -1,8 +1,8 @@
 "use client"
 
-import { Row } from "@tanstack/react-table"
+import type { Row } from "@tanstack/react-table"
 import { MoreHorizontal } from "lucide-react"
-import React, { useState } from "react"
+import { useState } from "react"
 import { DeleteAlertDialog } from "@/components/core/delete-alert-dialog"
 import { Button } from "@/components/ui/button"
 import {
@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { useDeletePayment } from "@/hooks/rq/use-payment-query"
 import { usePaymentsStore } from "@/stores/payments-store"
-import { Payment } from "@/types/payments"
+import type { Payment } from "@/types/payments"
 
 interface PaymentsTableRowActionsProps {
   row: Row<Payment>

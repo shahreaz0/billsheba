@@ -1,6 +1,6 @@
 import { createStore } from "stan-js"
 
-import { Payment } from "@/types/payments"
+import type { Payment } from "@/types/payments"
 
 export const { useStore: usePaymentsStore, reset: resetPaymentsStore } = createStore({
   isViewPaymentDialogOpen: false,

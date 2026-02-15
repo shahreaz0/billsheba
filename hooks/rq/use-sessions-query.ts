@@ -1,6 +1,6 @@
 import { queryOptions, useQuery } from "@tanstack/react-query"
 import { httpV1 } from "@/lib/xior"
-import { SessionResponse } from "@/types/sessions"
+import type { SessionResponse } from "@/types/sessions"
 
 export function getSessionsOptions() {
   return queryOptions({

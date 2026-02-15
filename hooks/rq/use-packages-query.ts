@@ -6,7 +6,7 @@ import {
 } from "@tanstack/react-query"
 import { toast } from "sonner"
 import { httpV1 } from "@/lib/xior"
-import { Package, PackageResponse } from "@/types/packages"
+import type { Package, PackageResponse } from "@/types/packages"
 
 export function getPackageListOptions() {
   return queryOptions({
