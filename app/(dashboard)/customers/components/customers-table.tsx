@@ -22,13 +22,21 @@ export function CustomersTable() {
   const organization = organizationData?.results?.[0]
   const showExpiryDate = organization?.billing_cycle !== "MONTHLY"
 
+  const [status, setStatus] = React.useState("all")
+
+  const filteredData = React.useMemo(() => {
+    if (!customersData?.results) return []
+    if (status === "all") return customersData.results
+    return customersData.results.filter(
+      (customer) => customer.is_active.toString() === status,
+    )
+  }, [customersData?.results, status])
+
   const { table, render } = useDataTable({
     columns,
-    data: customersData?.results,
+    data: filteredData,
     loading: isLoading,
   })
-
-  const [status, setStatus] = React.useState("all")
 
   React.useEffect(() => {
     table.setColumnVisibility((prev) => ({
@@ -36,14 +44,6 @@ export function CustomersTable() {
       subscription_end_date: showExpiryDate,
     }))
   }, [showExpiryDate, table])
-
-  React.useEffect(() => {
-    if (status === "all") {
-      table.getColumn("is_active")?.setFilterValue(undefined)
-    } else {
-      table.getColumn("is_active")?.setFilterValue([status])
-    }
-  }, [status, table])
 
   return (
     <div className="space-y-4">
