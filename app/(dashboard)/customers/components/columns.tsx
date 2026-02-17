@@ -91,12 +91,28 @@ export const columns: ColumnDef<Customer>[] = [
               <div className="max-w-[500px] truncate font-medium">
                 {row.original.package?.name}
               </div>
-              <div className="max-w-[500px] truncate text-xs text-slate-500">
-                {row.original.package?.price} BDT
+              <div className="flex items-center gap-2 mt-1">
+                <span className="text-xs text-slate-500">
+                  {row.original.package?.price} BDT
+                </span>
+                <Badge
+                  variant="outline"
+                  className="text-[10px] h-4 px-1 leading-none border-blue-200 bg-blue-50 text-blue-600"
+                >
+                  {row.original.connection_type}
+                </Badge>
               </div>
             </>
           ) : (
-            <div className="text-red-500">Not Assigned</div>
+            <div className="space-y-1">
+              <div className="text-red-500">Not Assigned</div>
+              <Badge
+                variant="outline"
+                className="text-[10px] h-4 px-1 leading-none border-blue-200 bg-blue-50 text-blue-600"
+              >
+                {row.original.connection_type}
+              </Badge>
+            </div>
           )}
         </div>
       )
@@ -109,13 +125,6 @@ export const columns: ColumnDef<Customer>[] = [
       const date = row.original.subscription_end_date
       const formatted = date ? format(new Date(date), "dd MMM yyyy") : "-"
       return formatted
-    },
-  },
-  {
-    accessorKey: "connection_type",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Connection" />,
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
     },
   },
   {

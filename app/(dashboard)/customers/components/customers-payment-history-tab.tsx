@@ -1,3 +1,5 @@
+"use client"
+
 import { zodResolver } from "@hookform/resolvers/zod"
 import { format } from "date-fns"
 import { Plus } from "lucide-react"
@@ -75,6 +77,59 @@ export function CustomersPaymentHistoryTab() {
     })
   }
 
+  function renderPaymentHistory() {
+    if (isLoading) {
+      return (
+        <tr>
+          <td colSpan={4} className="py-2 px-2 text-center">
+            Loading...
+          </td>
+        </tr>
+      )
+    }
+
+    if (isError) {
+      return (
+        <tr>
+          <td colSpan={4} className="py-2 px-2 text-center text-red-500">
+            Error loading payments
+          </td>
+        </tr>
+      )
+    }
+
+    if (payments && payments.results.length > 0) {
+      return payments.results.map((payment) => (
+        <tr key={payment.uid} className="border-b transition-colors hover:bg-muted/50">
+          <td className="py-2 px-2">
+            {payment.payment_date ? format(payment.payment_date, "dd/MM/yyyy") : "-"}
+          </td>
+          <td className="py-2 px-2">{payment.billing_month || "-"}</td>
+          <td className="py-2 px-2">{payment.amount ? `BDT ${payment.amount}` : "-"}</td>
+          <td className="py-2 px-2">
+            <span
+              className={`px-2 py-1 rounded text-xs ${
+                payment.paid
+                  ? "bg-green-100 text-green-800"
+                  : "bg-orange-100 text-orange-800"
+              }`}
+            >
+              {payment.paid ? "Paid" : "Pending"}
+            </span>
+          </td>
+        </tr>
+      ))
+    }
+
+    return (
+      <tr>
+        <td colSpan={4} className="py-2 px-2 text-center">
+          No payments found
+        </td>
+      </tr>
+    )
+  }
+
   return (
     <div className="flex flex-col lg:flex-row gap-4">
       <div className="flex-1 rounded-lg border bg-card text-card-foreground shadow-sm p-4">
@@ -95,48 +150,7 @@ export function CustomersPaymentHistoryTab() {
                 <th className="py-2 px-2 text-left">Status</th>
               </tr>
             </thead>
-            <tbody>
-              {isLoading ? (
-                <tr>
-                  <td colSpan={4} className="py-2 px-2 text-center">
-                    Loading...
-                  </td>
-                </tr>
-              ) : isError ? (
-                <tr>
-                  <td colSpan={4} className="py-2 px-2 text-center text-red-500">
-                    Error loading payments
-                  </td>
-                </tr>
-              ) : payments && payments.results.length > 0 ? (
-                payments.results.map((payment) => (
-                  <tr key={payment.uid}>
-                    <td className="py-2 px-2">
-                      {payment.payment_date
-                        ? format(payment.payment_date, "dd/MM/yyyy")
-                        : "-"}
-                    </td>
-                    <td className="py-2 px-2">{payment.billing_month || "-"}</td>
-                    <td className="py-2 px-2">
-                      {payment.amount ? `BDT ${payment.amount}` : "-"}
-                    </td>
-                    <td className="py-2 px-2">
-                      <span
-                        className={`px-2 py-1 rounded text-xs ${payment.paid ? "bg-green-100 text-green-800" : "bg-orange-100 text-orange-800"}`}
-                      >
-                        {payment.paid ? "Paid" : "Pending"}
-                      </span>
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan={4} className="py-2 px-2 text-center">
-                    No payments found
-                  </td>
-                </tr>
-              )}
-            </tbody>
+            <tbody>{renderPaymentHistory()}</tbody>
           </table>
         </div>
       </div>
