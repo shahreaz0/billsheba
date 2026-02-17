@@ -1,6 +1,15 @@
 "use client"
 
-import { AlertTriangle, Bell, Package, Settings, Shield, Users } from "lucide-react"
+import {
+  AlertTriangle,
+  Bell,
+  FileText,
+  Package,
+  Settings,
+  Shield,
+  TrashIcon,
+  Users,
+} from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
@@ -335,26 +344,50 @@ export function SettingsContent() {
             </Card>
           </div> */}
 
-          {/* Quick Actions */}
-          <div className="grid grid-cols-1 md:grid-cols-2">
-            <Card className="border-destructive/20">
-              <CardHeader>
-                <div className="flex items-center space-x-2">
-                  <AlertTriangle className="h-5 w-5 text-destructive" />
-                  <CardTitle>Danger Zone</CardTitle>
-                </div>
-                <CardDescription>
-                  Actions that can significantly impact the system.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-4">
+          {/* Danger Zone */}
+          <Card className="border-destructive bg-destructive/5">
+            <CardHeader>
+              <div className="flex items-center space-x-2">
+                <AlertTriangle className="h-5 w-5 text-destructive" />
+                <CardTitle className="text-destructive">Danger Zone</CardTitle>
+              </div>
+              <CardDescription>
+                Irreversible actions that can significantly impact your system. Use with
+                caution.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-3">
+                {/* Generate Bills Action */}
+                <div className="flex items-center justify-between p-4 rounded-lg border bg-background">
+                  <div className="flex items-start space-x-3 flex-1">
+                    <FileText className="h-5 w-5 text-muted-foreground mt-0.5" />
+                    <div className="flex-1">
+                      <h4 className="text-sm font-medium">Generate Bills</h4>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        Generate new billing statements for all active customers
+                      </p>
+                    </div>
+                  </div>
                   <BillGenerationButton />
+                </div>
+
+                {/* Deactivate Due Customers Action */}
+                <div className="flex items-center justify-between p-4 rounded-lg border bg-background">
+                  <div className="flex items-start space-x-3 flex-1">
+                    <TrashIcon className="h-5 w-5 text-muted-foreground mt-0.5" />
+                    <div className="flex-1">
+                      <h4 className="text-sm font-medium">Deactivate Due Customers</h4>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        Automatically deactivate all customers with overdue payments
+                      </p>
+                    </div>
+                  </div>
                   <DeactivateDueCustomersButton />
                 </div>
-              </CardContent>
-            </Card>
-          </div>
+              </div>
+            </CardContent>
+          </Card>
         </TabsContent>
       </Tabs>
     </div>

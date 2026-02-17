@@ -20,7 +20,11 @@ export function BillGenerationButton() {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button size="sm" variant="link">
+        <Button
+          size="sm"
+          variant="outline"
+          className="text-destructive border-destructive hover:bg-destructive hover:text-white"
+        >
           <FileText className="h-4 w-4" />
           {billGeneration.isPending ? "Generating..." : "Generate Bills"}
         </Button>
