@@ -1,6 +1,7 @@
 "use client"
 
 import {
+  AlertTriangle,
   Bell,
   Database,
   Globe,
@@ -21,6 +22,8 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
+import { BillGenerationButton } from "./bill-generation-button"
+import { DeactivateDueCustomersButton } from "./deactivate-due-users-button"
 
 export function SettingsContent() {
   return (
@@ -313,6 +316,25 @@ export function SettingsContent() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Administrative Actions */}
+      <Card className="border-destructive/20">
+        <CardHeader>
+          <div className="flex items-center space-x-2">
+            <AlertTriangle className="h-5 w-5 text-destructive" />
+            <CardTitle>Administrative Actions</CardTitle>
+          </div>
+          <CardDescription>
+            Use with caution as these actions can affect all customers.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex flex-wrap gap-4">
+            <BillGenerationButton />
+            <DeactivateDueCustomersButton />
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Quick Actions */}
       <Card>
