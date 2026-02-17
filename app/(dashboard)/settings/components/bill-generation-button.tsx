@@ -23,7 +23,7 @@ export function BillGenerationButton() {
         <Button
           size="sm"
           variant="outline"
-          className="text-destructive border-destructive hover:bg-destructive hover:text-white"
+          className="w-full text-destructive border-destructive hover:bg-destructive hover:text-white"
         >
           <FileText className="h-4 w-4" />
           {billGeneration.isPending ? "Generating..." : "Generate Bills"}

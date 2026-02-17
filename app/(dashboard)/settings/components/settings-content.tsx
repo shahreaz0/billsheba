@@ -359,7 +359,7 @@ export function SettingsContent() {
             <CardContent className="space-y-4">
               <div className="space-y-3">
                 {/* Generate Bills Action */}
-                <div className="flex items-center justify-between p-4 rounded-lg border bg-background">
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 p-4 rounded-lg border bg-background">
                   <div className="flex items-start space-x-3 flex-1">
                     <FileText className="h-5 w-5 text-muted-foreground mt-0.5" />
                     <div className="flex-1">
@@ -369,11 +369,13 @@ export function SettingsContent() {
                       </p>
                     </div>
                   </div>
-                  <BillGenerationButton />
+                  <div className="w-full md:w-auto">
+                    <BillGenerationButton />
+                  </div>
                 </div>
 
                 {/* Deactivate Due Customers Action */}
-                <div className="flex items-center justify-between p-4 rounded-lg border bg-background">
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 p-4 rounded-lg border bg-background">
                   <div className="flex items-start space-x-3 flex-1">
                     <TrashIcon className="h-5 w-5 text-muted-foreground mt-0.5" />
                     <div className="flex-1">
@@ -383,7 +385,9 @@ export function SettingsContent() {
                       </p>
                     </div>
                   </div>
-                  <DeactivateDueCustomersButton />
+                  <div className="w-full md:w-auto">
+                    <DeactivateDueCustomersButton />
+                  </div>
                 </div>
               </div>
             </CardContent>
