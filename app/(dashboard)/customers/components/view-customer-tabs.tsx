@@ -1,3 +1,5 @@
+"use client"
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { CustomersDetailsTab } from "./customers-details-tab"
 import { CustomersPaymentHistoryTab } from "./customers-payment-history-tab"

@@ -1,5 +1,5 @@
 "use client"
-import { TrashIcon } from "lucide-react"
+import { FileText } from "lucide-react"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,33 +12,35 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
-import { useDeactivateDueCustomersTask } from "@/hooks/rq/use-deactivate-due-customers"
+import { useBillGeneration } from "@/hooks/rq/use-bill-generation"
 
-export function DeactivateDueCustomersButton() {
-  const deactivateDueCustomers = useDeactivateDueCustomersTask()
+export function BillGenerationButton() {
+  const billGeneration = useBillGeneration()
 
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button size="sm" variant="link">
-          <TrashIcon className="h-4 w-4" />
-          {deactivateDueCustomers.isPending
-            ? "Deactivating..."
-            : "Deactivate Due Customers"}
+        <Button
+          size="sm"
+          variant="outline"
+          className="text-destructive border-destructive hover:bg-destructive hover:text-white"
+        >
+          <FileText className="h-4 w-4" />
+          {billGeneration.isPending ? "Generating..." : "Generate Bills"}
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
-            This will deactivate your due customers
+            This action cannot be undone. This will generate bills
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction
-            onClick={() => deactivateDueCustomers.mutate()}
-            disabled={deactivateDueCustomers.isPending}
+            onClick={() => billGeneration.mutate()}
+            disabled={billGeneration.isPending}
           >
             Continue
           </AlertDialogAction>

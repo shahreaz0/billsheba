@@ -20,7 +20,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { useSession } from "@/hooks/rq/use-auth-query"
 import { useCreateUser, useUpdateUser } from "@/hooks/rq/use-users-query"
 import { useUsersStore } from "@/stores/users-store"
 import { genders, kinds } from "../data/data"
@@ -78,8 +77,6 @@ const editSchema = baseSchema
   )
 
 export function UsersUpsertForm() {
-  const { data: session } = useSession()
-
   const { setIsUpsertUserDialogOpen, userMutationType, selectedUser } = useUsersStore()
   const { mutate: triggerCreateUser, isPending: isCreateUserPending } = useCreateUser()
   const { mutate: triggerUpdateUser, isPending: isUpdateUserPending } = useUpdateUser()
