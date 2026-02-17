@@ -1,7 +1,6 @@
 "use client"
 
 import {
-  Building2,
   CreditCard,
   LayoutDashboard,
   Package2,
@@ -19,7 +18,6 @@ const navItems = [
   { href: "/customers", label: "Customers", icon: UsersIcon },
   { href: "/packages", label: "Packages", icon: Package2 },
   { href: "/payments", label: "Payments", icon: CreditCard },
-  { href: "/organizations", label: "Organizations", icon: Building2 },
   { href: "/users", label: "Users", icon: UserIcon },
   { href: "/sessions", label: "Sessions", icon: Wifi },
   { href: "/settings", label: "Settings", icon: Settings2 },

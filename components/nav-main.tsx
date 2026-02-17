@@ -2,7 +2,6 @@
 
 import { useQueryClient } from "@tanstack/react-query"
 import {
-  Building2,
   CreditCard,
   LayoutDashboard,
   Package2,
@@ -22,7 +21,6 @@ import {
 import { useSession } from "@/hooks/rq/use-auth-query"
 import { getCustomerListOptions } from "@/hooks/rq/use-customers-query"
 import { getDashboardDataOptions } from "@/hooks/rq/use-dashboard-query"
-import { getOrganizationListOptions } from "@/hooks/rq/use-organizations-query"
 import { getPackageListOptions } from "@/hooks/rq/use-packages-query"
 import { getPaymentListOptions } from "@/hooks/rq/use-payment-query"
 import { getSessionsOptions } from "@/hooks/rq/use-sessions-query"
@@ -67,12 +65,6 @@ const navMain = [
     url: "/users",
     icon: User,
     prefetchOptions: getUserListOptions,
-  },
-  {
-    title: "Organizations",
-    url: "/organizations",
-    icon: Building2,
-    prefetchOptions: getOrganizationListOptions,
   },
   {
     title: "Settings",
