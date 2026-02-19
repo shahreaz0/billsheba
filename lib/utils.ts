@@ -46,10 +46,10 @@ export function formatUptime(uptime: string): string {
   const formattedParts: string[] = []
 
   parts.forEach((part) => {
-    const match = part.match(/(\d+)([wdhms])/)
+    const match = new RegExp(/(\d+)([wdhms])/).exec(part)
     if (match) {
       const [, value, unit] = match
-      const num = parseInt(value, 10)
+      const num = Number.parseInt(value, 10)
 
       // Only show significant time units
       if (unit === "w" && num > 0) {
@@ -68,4 +68,14 @@ export function formatUptime(uptime: string): string {
 
   // Limit to 3 most significant parts for better readability
   return formattedParts.slice(0, 3).join(" ") || "0s"
+}
+
+export function removeEmptyFields<
+  T extends Record<string, string | number | boolean | undefined | null>,
+>(data: T): Partial<T> {
+  const filtered = Object.entries(data).filter(
+    ([_, value]) => value !== "" && value !== null && value !== undefined,
+  )
+
+  return Object.fromEntries(filtered) as Partial<T>
 }

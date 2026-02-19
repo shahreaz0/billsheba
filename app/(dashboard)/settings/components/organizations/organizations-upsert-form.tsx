@@ -33,6 +33,7 @@ import {
   useCreateOrganization,
   useUpdateOrganization,
 } from "@/hooks/rq/use-organizations-query"
+import { removeEmptyFields } from "@/lib/utils"
 import { useOrganizationsStore } from "@/stores/organizations-store"
 
 export const formSchema = z.object({
@@ -67,20 +68,20 @@ export function OrganizationsUpsertForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: selectedOrganization.name || "",
-      address: selectedOrganization.address || "",
-      phone: selectedOrganization.phone || "",
-      email: selectedOrganization.email || "",
-      website: selectedOrganization.website || "",
-      subscription: selectedOrganization.subscription?.toString() || "",
+      name: selectedOrganization.name || undefined,
+      address: selectedOrganization.address || undefined,
+      phone: selectedOrganization.phone || undefined,
+      email: selectedOrganization.email || undefined,
+      website: selectedOrganization.website || undefined,
+      subscription: selectedOrganization.subscription?.toString() || undefined,
       subscription_status: selectedOrganization.subscription_status || "PENDING",
-      allowed_customer: selectedOrganization.allowed_customer || 0,
-      total_customer: selectedOrganization.total_customer || 0,
-      router_ip: selectedOrganization.router_ip || "",
-      router_username: selectedOrganization.router_username || "",
-      router_password: selectedOrganization.router_password || "",
-      router_port: selectedOrganization.router_port || 8728,
-      router_secret: selectedOrganization.router_secret || "",
+      allowed_customer: selectedOrganization.allowed_customer || undefined,
+      total_customer: selectedOrganization.total_customer || undefined,
+      router_ip: undefined,
+      router_username: undefined,
+      router_password: undefined,
+      router_port: selectedOrganization.router_port || undefined,
+      router_secret: undefined,
       router_ssl: selectedOrganization.router_ssl || false,
     },
   })
@@ -93,7 +94,7 @@ export function OrganizationsUpsertForm() {
 
     if (organizationMutationType === "edit") {
       triggerUpdateOrganization(
-        { payload, uid: selectedOrganization.uid },
+        { payload: removeEmptyFields(payload), uid: selectedOrganization.uid },
         {
           onSuccess: () => setIsUpsertOrganizationDialogOpen(false),
         },

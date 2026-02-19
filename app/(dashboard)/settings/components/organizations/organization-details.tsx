@@ -6,32 +6,42 @@ import {
   BadgeXIcon,
   Calendar,
   Edit2,
+  Eye,
+  EyeOff,
   Globe,
   Mail,
   MapPin,
   Phone,
   Users,
 } from "lucide-react"
+import { useState } from "react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { Skeleton } from "@/components/ui/skeleton"
-import { useGetOrganizationList } from "@/hooks/rq/use-organizations-query"
+import { useSession } from "@/hooks/rq/use-auth-query"
+import { useGetOrganizationDetails } from "@/hooks/rq/use-organizations-query"
 import { generateAvatarUrl, getInitials } from "@/lib/utils"
 import { useOrganizationsStore } from "@/stores/organizations-store"
 import { UpsertOrganizationsDialog } from "./upsert-organizations-dialog"
 
 export function OrganizationDetails() {
-  const { data: organizationsData, isLoading } = useGetOrganizationList()
   const {
     setSelectedOrganization,
     setOrganizationMutationType,
     setIsUpsertOrganizationDialogOpen,
   } = useOrganizationsStore()
 
-  const organization = organizationsData?.results?.[0]
+  const [showIp, setShowIp] = useState(false)
+  const [showPort, setShowPort] = useState(false)
+  const [showUsername, setShowUsername] = useState(false)
+
+  const { data: sessionData } = useSession()
+  const organizationUid = sessionData?.organization.uid || ""
+
+  const { data: organization, isLoading } = useGetOrganizationDetails(organizationUid)
 
   if (isLoading) {
     return (
@@ -99,6 +109,42 @@ export function OrganizationDetails() {
     (organization.total_customer / organization.allowed_customer) * 100,
   )
 
+  function getDisplayRouterIp() {
+    if (!organization?.router_ip) {
+      return "N/A"
+    }
+
+    if (showIp) {
+      return organization.router_ip
+    }
+
+    return "••••••••"
+  }
+
+  function getDisplayRouterPort() {
+    if (!organization?.router_port) {
+      return "N/A"
+    }
+
+    if (showPort) {
+      return organization.router_port
+    }
+
+    return "••••"
+  }
+
+  function getDisplayRouterUsername() {
+    if (!organization?.router_username) {
+      return "N/A"
+    }
+
+    if (showUsername) {
+      return organization.router_username
+    }
+
+    return "••••••••"
+  }
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b">
@@ -128,9 +174,11 @@ export function OrganizationDetails() {
         </div>
         <Button
           onClick={() => {
-            setSelectedOrganization(organization)
-            setOrganizationMutationType("edit")
-            setIsUpsertOrganizationDialogOpen(true)
+            if (organization) {
+              setSelectedOrganization(organization)
+              setOrganizationMutationType("edit")
+              setIsUpsertOrganizationDialogOpen(true)
+            }
           }}
           className="gap-2"
         >
@@ -230,17 +278,67 @@ export function OrganizationDetails() {
             <CardContent className="grid grid-cols-2 gap-4">
               <div className="space-y-1">
                 <span className="text-xs text-muted-foreground">IP Address</span>
-                <p className="text-sm font-medium">{organization.router_ip || "N/A"}</p>
+                <div className="flex items-center gap-2 group min-w-0">
+                  <p className="text-sm font-medium break-all">{getDisplayRouterIp()}</p>
+                  {organization.router_ip && (
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity"
+                      onClick={() => setShowIp(!showIp)}
+                    >
+                      {showIp ? (
+                        <EyeOff className="h-3.5 w-3.5" />
+                      ) : (
+                        <Eye className="h-3.5 w-3.5" />
+                      )}
+                    </Button>
+                  )}
+                </div>
               </div>
               <div className="space-y-1">
                 <span className="text-xs text-muted-foreground">Port</span>
-                <p className="text-sm font-medium">{organization.router_port || "N/A"}</p>
+                <div className="flex items-center gap-2 group min-w-0">
+                  <p className="text-sm font-medium break-all">
+                    {getDisplayRouterPort()}
+                  </p>
+                  {organization.router_port && (
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity"
+                      onClick={() => setShowPort(!showPort)}
+                    >
+                      {showPort ? (
+                        <EyeOff className="h-3.5 w-3.5" />
+                      ) : (
+                        <Eye className="h-3.5 w-3.5" />
+                      )}
+                    </Button>
+                  )}
+                </div>
               </div>
               <div className="space-y-1">
                 <span className="text-xs text-muted-foreground">Username</span>
-                <p className="text-sm font-medium">
-                  {organization.router_username || "N/A"}
-                </p>
+                <div className="flex items-center gap-2 group min-w-0">
+                  <p className="text-sm font-medium break-all">
+                    {getDisplayRouterUsername()}
+                  </p>
+                  {organization.router_username && (
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity"
+                      onClick={() => setShowUsername(!showUsername)}
+                    >
+                      {showUsername ? (
+                        <EyeOff className="h-3.5 w-3.5" />
+                      ) : (
+                        <Eye className="h-3.5 w-3.5" />
+                      )}
+                    </Button>
+                  )}
+                </div>
               </div>
               <div className="space-y-1">
                 <span className="text-xs text-muted-foreground">SSL</span>
