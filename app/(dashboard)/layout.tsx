@@ -10,7 +10,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <SidebarInset>
         <DashboardHeader />
 
-        <main className="p-4">{children}</main>
+        <main className="p-4 pb-24 md:pb-4">{children}</main>
       </SidebarInset>
       <MobileBottomNav />
     </SidebarProvider>

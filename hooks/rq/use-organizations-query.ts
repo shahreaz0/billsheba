@@ -65,7 +65,7 @@ function updateOrganizationOptions() {
     }) => {
       return httpV1
         .request<Organization>({
-          method: "PUT",
+          method: "PATCH",
           url: `/organizations/${uid}`,
           data: payload,
         })
@@ -104,31 +104,23 @@ function deleteOrganizationOptions() {
   })
 }
 
-// export function getOrganizationDetailsOptions(uid: string) {
-//   return queryOptions({
-//     queryKey: ["organizations", "details", uid],
-//     queryFn: () =>
-//       httpV1
-//         .request<Organization>({
-//           method: "GET",
-//           url: `/organizations/${uid}`,
-//         })
-//         .then((res) => res.data),
-//   })
-// }
+export function getOrganizationDetailsOptions(uid: string) {
+  return queryOptions({
+    queryKey: ["organizations", "details", uid],
+    enabled: !!uid,
+    queryFn: () =>
+      httpV1
+        .request<Organization>({
+          method: "GET",
+          url: `/organizations/${uid}`,
+        })
+        .then((res) => res.data),
+  })
+}
 
-// export function useGetOrganizationDetails(uid: string | undefined | null) {
-//   if (!uid) {
-//     // Return a disabled query when uid is not provided
-//     return useQuery({
-//       queryKey: ["organizations", "details", uid],
-//       queryFn: async () => null,
-//       enabled: false,
-//     })
-//   }
-
-//   return useQuery(getOrganizationDetailsOptions(uid))
-// }
+export function useGetOrganizationDetails(uid: string) {
+  return useQuery(getOrganizationDetailsOptions(uid))
+}
 
 export function useGetOrganizationList() {
   return useQuery(getOrganizationListOptions())
