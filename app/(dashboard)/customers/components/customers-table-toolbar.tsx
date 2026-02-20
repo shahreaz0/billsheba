@@ -3,7 +3,6 @@
 import type { Table } from "@tanstack/react-table"
 import { Plus } from "lucide-react"
 import { DataTableSearch } from "@/components/data-table/data-table-search"
-import { DataTableViewOptions } from "@/components/data-table/data-table-view-options"
 import { Button } from "@/components/ui/button"
 
 import { useCustomersStore } from "@/stores/customers-store"
@@ -37,7 +36,7 @@ export function CustomersTableToolbar<TData>({ table }: DataTableToolbarProps<TD
         Add Customer
       </Button>
 
-      <DataTableViewOptions table={table} />
+      {/* <DataTableViewOptions table={table} /> */}
     </div>
   )
 }

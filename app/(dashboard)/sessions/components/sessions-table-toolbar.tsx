@@ -4,7 +4,6 @@ import type { Table } from "@tanstack/react-table"
 import { RefreshCw, X } from "lucide-react"
 import { DataTableFacetedFilter } from "@/components/data-table/data-table-faceted-filter"
 import { DataTableSearch } from "@/components/data-table/data-table-search"
-import { DataTableViewOptions } from "@/components/data-table/data-table-view-options"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
@@ -89,7 +88,7 @@ export function SessionsTableToolbar<TData>({ table }: DataTableToolbarProps<TDa
           Refresh
         </Button>
 
-        <DataTableViewOptions table={table} />
+        {/* <DataTableViewOptions table={table} /> */}
       </div>
     </div>
   )
