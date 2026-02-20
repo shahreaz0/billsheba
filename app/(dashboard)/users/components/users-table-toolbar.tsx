@@ -4,7 +4,6 @@ import type { Table } from "@tanstack/react-table"
 import { Plus, X } from "lucide-react"
 import { DataTableFacetedFilter } from "@/components/data-table/data-table-faceted-filter"
 import { DataTableSearch } from "@/components/data-table/data-table-search"
-import { DataTableViewOptions } from "@/components/data-table/data-table-view-options"
 import { Button } from "@/components/ui/button"
 import { useSession } from "@/hooks/rq/use-auth-query"
 import { useUsersStore } from "@/stores/users-store"
@@ -76,7 +75,7 @@ export function UsersTableToolbar<TData>({ table }: DataTableToolbarProps<TData>
         </Button>
       )}
 
-      <DataTableViewOptions table={table} />
+      {/* <DataTableViewOptions table={table} /> */}
     </div>
   )
 }

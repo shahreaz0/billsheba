@@ -1,6 +1,7 @@
 "use client"
 
 import type { ColumnDef } from "@tanstack/react-table"
+import { format } from "date-fns"
 import { CircleCheckIcon, CircleXIcon } from "lucide-react"
 import { DataTableColumnHeader } from "@/components/data-table/data-table-column-header"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -80,37 +81,16 @@ export const columns: ColumnDef<Payment>[] = [
       <DataTableColumnHeader column={column} title="Bill Amount (BDT)" />
     ),
     cell: ({ row }) => {
+      const recordDate = row.original.payment_date || row.original.created_at
+      const year = recordDate ? format(new Date(recordDate), "yyyy") : ""
       return (
         <div>
           <div className="max-w-[500px] truncate font-medium">
             {row.original.bill_amount}
           </div>
-          <div className="max-w-[500px] truncate text-xs text-slate-500">
-            {row.original.billing_month}
+          <div className="max-w-[500px] truncate text-xs text-slate-500 capitalize">
+            {row.original.billing_month.toLowerCase()} {year}
           </div>
-        </div>
-      )
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
-    },
-  },
-  {
-    accessorKey: "payment_method",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Method" />,
-    cell: ({ row }) => {
-      const status = paymentMethods.find(
-        (method) => method.value === row.getValue("payment_method"),
-      )
-
-      if (!status) {
-        return null
-      }
-
-      return (
-        <div className="flex items-center">
-          {status.icon && <status.icon className="mr-2 h-4 w-4 text-muted-foreground" />}
-          <p>{status.label}</p>
         </div>
       )
     },
@@ -120,17 +100,42 @@ export const columns: ColumnDef<Payment>[] = [
   },
   {
     accessorKey: "amount",
-    // accessorFn: (row) => `${row.entry_by?.first_name} ${row.entry_by?.last_name}`,
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Amount (BDT)" />
     ),
     cell: ({ row }) => {
+      const method = paymentMethods.find((m) => m.value === row.original.payment_method)
+
       return (
         <div>
           <div className="max-w-[500px] truncate font-medium">{row.original.amount}</div>
-          {/* <div className="max-w-[500px] truncate text-xs text-slate-500">
-            {row.original.billing_month}
-          </div> */}
+          {method && (
+            <div className="flex items-center text-xs text-slate-500 mt-1">
+              {method.icon && <method.icon className="mr-1 h-3 w-3" />}
+              {method.label}
+            </div>
+          )}
+        </div>
+      )
+    },
+  },
+  {
+    accessorKey: "payment_date",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Payment Date" />
+    ),
+    cell: ({ row }) => {
+      const recordDate = row.original.payment_date || row.original.created_at
+
+      if (!recordDate) return <div className="max-w-[500px] truncate font-medium">-</div>
+
+      const date = format(new Date(recordDate), "dd MMM yyyy")
+      const time = format(new Date(recordDate), "hh:mm a")
+
+      return (
+        <div>
+          <div className="max-w-[500px] truncate font-medium">{date}</div>
+          <div className="flex items-center text-xs text-slate-500 mt-1">{time}</div>
         </div>
       )
     },

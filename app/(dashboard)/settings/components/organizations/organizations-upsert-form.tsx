@@ -108,6 +108,12 @@ export function OrganizationsUpsertForm() {
 
   const isLoading = isCreateOrganizationPending || isUpdateOrganizationPending
 
+  function getSubmitButtonText() {
+    if (isLoading) return "Saving..."
+    if (organizationMutationType === "add") return "Create"
+    return "Update"
+  }
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -406,11 +412,7 @@ export function OrganizationsUpsertForm() {
           </Button>
           <Button type="submit" disabled={isLoading}>
             <Save />
-            {isLoading
-              ? "Saving..."
-              : organizationMutationType === "add"
-                ? "Create"
-                : "Update"}
+            {getSubmitButtonText()}
           </Button>
         </div>
       </form>

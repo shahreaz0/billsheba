@@ -43,17 +43,18 @@ const navMain = [
     prefetchOptions: getCustomerListOptions,
   },
   {
-    title: "Sessions",
-    url: "/sessions",
-    icon: Wifi,
-    prefetchOptions: getSessionsOptions,
-  },
-  {
     title: "Payments",
     url: "/payments",
     icon: CreditCard,
     prefetchOptions: getPaymentListOptions,
   },
+  {
+    title: "Sessions",
+    url: "/sessions",
+    icon: Wifi,
+    prefetchOptions: getSessionsOptions,
+  },
+
   {
     title: "Packages",
     url: "/packages",
