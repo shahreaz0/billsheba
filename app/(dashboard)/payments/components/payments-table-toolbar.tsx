@@ -3,7 +3,6 @@
 import type { Table } from "@tanstack/react-table"
 import { Plus, X } from "lucide-react"
 import * as React from "react"
-import { DataTableFacetedFilter } from "@/components/data-table/data-table-faceted-filter"
 import { DataTableSearch } from "@/components/data-table/data-table-search"
 import { DataTableViewOptions } from "@/components/data-table/data-table-view-options"
 import { Button } from "@/components/ui/button"
@@ -15,8 +14,6 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { usePaymentsStore } from "@/stores/payments-store"
-import { months, paymentMethods, paymentStatuses } from "../data/data"
-import { PaymentsYearSelect } from "./payments-year-select"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
@@ -27,9 +24,6 @@ export function PaymentsTableToolbar<TData>({ table }: DataTableToolbarProps<TDa
 
   const { setPaymentMutationType, setIsUpsertPaymentDialogOpen } = usePaymentsStore()
   const [searchField, setSearchField] = React.useState("customer")
-
-  const currentMonth = months[new Date().getMonth()].value
-  const currentMonthArray = React.useMemo(() => [currentMonth], [currentMonth])
 
   return (
     <div className="flex md:items-center md:justify-between flex-col md:flex-row gap-2">
@@ -45,32 +39,6 @@ export function PaymentsTableToolbar<TData>({ table }: DataTableToolbarProps<TDa
         </Select>
 
         <DataTableSearch table={table} searchField={searchField} />
-
-        {table.getColumn("paid") && (
-          <DataTableFacetedFilter
-            column={table.getColumn("paid")}
-            title="Status"
-            options={paymentStatuses}
-          />
-        )}
-        {table.getColumn("payment_method") && (
-          <DataTableFacetedFilter
-            column={table.getColumn("payment_method")}
-            title="Method"
-            options={paymentMethods}
-          />
-        )}
-
-        {table.getColumn("billing_month") && (
-          <DataTableFacetedFilter
-            column={table.getColumn("billing_month")}
-            title="Month"
-            options={months}
-            defaultValues={currentMonthArray}
-          />
-        )}
-
-        <PaymentsYearSelect />
 
         {isFiltered && (
           <Button

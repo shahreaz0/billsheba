@@ -1,8 +1,9 @@
 "use client"
 
-import { Suspense } from "react"
+import React, { Suspense } from "react"
 import { DataTableCardView } from "@/components/data-table/data-table-card-view"
 import { useDataTable } from "@/components/data-table/use-data-table"
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useGetPaymentList } from "@/hooks/rq/use-payment-query"
 import { generateAvatarUrl } from "@/lib/utils"
 import { usePaymentsStore } from "@/stores/payments-store"
@@ -16,16 +17,33 @@ export function PaymentsTable() {
   const { data: paymentsData, isLoading } = useGetPaymentList()
   const { setIsViewPaymentDialogOpen, setSelectedPayment } = usePaymentsStore()
 
+  const [status, setStatus] = React.useState("all")
+
+  const filteredData = React.useMemo(() => {
+    if (!paymentsData?.results) return []
+    if (status === "all") return paymentsData.results
+    return paymentsData.results.filter((payment) => payment.paid.toString() === status)
+  }, [paymentsData?.results, status])
+
   const { table, render } = useDataTable({
     columns,
-    data: paymentsData?.results,
+    data: filteredData,
     loading: isLoading,
   })
 
   return (
     <div className="space-y-4">
       <Suspense>
-        <PaymentsTableToolbar table={table} />
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <Tabs value={status} onValueChange={setStatus} className="w-full md:w-auto">
+            <TabsList className="grid w-full grid-cols-3 md:w-[300px]">
+              <TabsTrigger value="all">All</TabsTrigger>
+              <TabsTrigger value="true">Paid</TabsTrigger>
+              <TabsTrigger value="false">Unpaid</TabsTrigger>
+            </TabsList>
+          </Tabs>
+          <PaymentsTableToolbar table={table} />
+        </div>
 
         <div className="block md:hidden">
           <DataTableCardView
