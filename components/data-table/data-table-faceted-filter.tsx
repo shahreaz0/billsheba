@@ -32,7 +32,7 @@ export function DataTableFacetedFilter<TData, TValue>({
   title,
   options,
   defaultValues = [],
-}: DataTableFacetedFilterProps<TData, TValue>) {
+}: Readonly<DataTableFacetedFilterProps<TData, TValue>>) {
   const facets = column?.getFacetedUniqueValues()
 
   const [hasInitialized, setHasInitialized] = React.useState(false)
@@ -93,7 +93,7 @@ export function DataTableFacetedFilter<TData, TValue>({
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0" align="start">
+      <PopoverContent className="w-[280px] p-0" align="start">
         <Command>
           <CommandInput placeholder={title} />
           <CommandList>
@@ -124,7 +124,7 @@ export function DataTableFacetedFilter<TData, TValue>({
                   >
                     <div
                       className={cn(
-                        "mr-2 flex h-4 w-4 items-center justify-center rounded border border-primary",
+                        "mr-2 flex h-4 w-4 items-center justify-center rounded border border-primary shrink-0",
                         isSelected
                           ? "bg-primary text-primary-foreground"
                           : "opacity-50 [&_svg]:invisible",
@@ -133,11 +133,11 @@ export function DataTableFacetedFilter<TData, TValue>({
                       <Check className="text-white" />
                     </div>
                     {option.icon && (
-                      <option.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+                      <option.icon className="mr-2 h-4 w-4 text-muted-foreground shrink-0" />
                     )}
-                    <span>{option.label}</span>
+                    <span className="truncate">{option.label}</span>
                     {facets?.get(val) && (
-                      <span className="ml-auto flex h-4 w-4 items-center justify-center font-mono text-xs">
+                      <span className="ml-auto flex h-4 w-4 items-center justify-center font-mono text-xs shrink-0">
                         {facets.get(val)}
                       </span>
                     )}

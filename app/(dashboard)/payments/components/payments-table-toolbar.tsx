@@ -2,43 +2,37 @@
 
 import type { Table } from "@tanstack/react-table"
 import { Plus, X } from "lucide-react"
-import * as React from "react"
+import { DataTableFacetedFilter } from "@/components/data-table/data-table-faceted-filter"
 import { DataTableSearch } from "@/components/data-table/data-table-search"
 import { DataTableViewOptions } from "@/components/data-table/data-table-view-options"
 import { Button } from "@/components/ui/button"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import { usePaymentsStore } from "@/stores/payments-store"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
+  collectors: { label: string; value: string }[]
 }
 
-export function PaymentsTableToolbar<TData>({ table }: DataTableToolbarProps<TData>) {
+export function PaymentsTableToolbar<TData>({
+  table,
+  collectors,
+}: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0
 
   const { setPaymentMutationType, setIsUpsertPaymentDialogOpen } = usePaymentsStore()
-  const [searchField, setSearchField] = React.useState("customer")
 
   return (
     <div className="flex md:items-center md:justify-between flex-col md:flex-row gap-2">
       <div className="flex flex-1 items-center gap-2 flex-wrap">
-        <Select value={searchField} onValueChange={setSearchField}>
-          <SelectTrigger size="sm" className="w-full md:w-[132px]">
-            <SelectValue placeholder="Select" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="customer">Customer</SelectItem>
-            <SelectItem value="entry_by">Collected By</SelectItem>
-          </SelectContent>
-        </Select>
+        <DataTableSearch table={table} searchField="customer" />
 
-        <DataTableSearch table={table} searchField={searchField} />
+        {table.getColumn("entry_by") && (
+          <DataTableFacetedFilter
+            column={table.getColumn("entry_by")}
+            title="Collected By"
+            options={collectors}
+          />
+        )}
 
         {isFiltered && (
           <Button

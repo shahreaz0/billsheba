@@ -25,6 +25,28 @@ export function PaymentsTable() {
     return paymentsData.results.filter((payment) => payment.paid.toString() === status)
   }, [paymentsData?.results, status])
 
+  const collectors = React.useMemo(() => {
+    if (!paymentsData?.results) return []
+    const _collectors = paymentsData.results.map((payment) => {
+      const { first_name, last_name } = payment.entry_by || {}
+      const label =
+        first_name || last_name ? `${first_name || ""} ${last_name || ""}` : "None"
+      return {
+        label: label,
+        value: label,
+      }
+    })
+
+    const uniqueCollectorValues = new Set()
+    return _collectors.filter((collector) => {
+      if (uniqueCollectorValues.has(collector.value)) {
+        return false
+      }
+      uniqueCollectorValues.add(collector.value)
+      return true
+    })
+  }, [paymentsData?.results])
+
   const { table, render } = useDataTable({
     columns,
     data: filteredData,
@@ -42,7 +64,7 @@ export function PaymentsTable() {
               <TabsTrigger value="false">Unpaid</TabsTrigger>
             </TabsList>
           </Tabs>
-          <PaymentsTableToolbar table={table} />
+          <PaymentsTableToolbar table={table} collectors={collectors} />
         </div>
 
         <div className="block md:hidden">
