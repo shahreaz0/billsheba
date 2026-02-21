@@ -75,10 +75,11 @@ const navMain = [
 ]
 
 function NavListSkeleton() {
+  const skeletonItems = Array.from({ length: 7 }, (_, i) => `skeleton-${i}`)
   return (
     <div>
-      {Array.from({ length: 7 }).map((_list, i) => (
-        <Skeleton key={i} className="m-1 h-8" />
+      {skeletonItems.map((item) => (
+        <Skeleton key={item} className="m-1 h-8" />
       ))}
     </div>
   )

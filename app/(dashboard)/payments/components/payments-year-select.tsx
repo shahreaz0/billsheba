@@ -17,7 +17,7 @@ export function PaymentsYearSelect() {
   return (
     <Select
       value={paymentFilters.year}
-      onValueChange={(value) => setPaymentFilters({ year: value })}
+      onValueChange={(value) => setPaymentFilters((prev) => ({ ...prev, year: value }))}
     >
       <SelectTrigger className="w-[100px]" size="sm">
         <SelectValue placeholder="Year" />
