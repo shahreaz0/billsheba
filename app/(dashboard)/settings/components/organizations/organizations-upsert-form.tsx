@@ -344,7 +344,7 @@ export function OrganizationsUpsertForm() {
                     <FormItem>
                       <FormLabel>Router Username</FormLabel>
                       <FormControl>
-                        <Input placeholder="admin" {...field} />
+                        <Input placeholder="admin" autoComplete="off" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -358,7 +358,12 @@ export function OrganizationsUpsertForm() {
                     <FormItem>
                       <FormLabel>Router Password</FormLabel>
                       <FormControl>
-                        <Input type="password" placeholder="Enter password" {...field} />
+                        <Input
+                          type="password"
+                          placeholder="Enter password"
+                          autoComplete="new-password"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

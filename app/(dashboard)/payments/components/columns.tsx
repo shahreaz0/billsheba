@@ -125,7 +125,7 @@ export const columns: ColumnDef<Payment>[] = [
       <DataTableColumnHeader column={column} title="Payment Date" />
     ),
     cell: ({ row }) => {
-      const recordDate = row.original.payment_date || row.original.created_at
+      const recordDate = row.original.payment_date
 
       if (!recordDate) return <div className="max-w-[500px] truncate font-medium">-</div>
 
