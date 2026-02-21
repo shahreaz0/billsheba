@@ -46,4 +46,5 @@ export type EntryBy = {
 
 export type PaymentFilters = {
   year: string
+  status: string
 }

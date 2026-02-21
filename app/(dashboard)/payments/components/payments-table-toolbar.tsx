@@ -6,8 +6,10 @@ import { DataTableFacetedFilter } from "@/components/data-table/data-table-facet
 import { DataTableSearch } from "@/components/data-table/data-table-search"
 import { Button } from "@/components/ui/button"
 import { usePaymentsStore } from "@/stores/payments-store"
+import { PaymentsStats } from "./payments-stats"
+import { PaymentsStatusTabs } from "./payments-status-tabs"
 
-interface DataTableToolbarProps<TData> {
+type DataTableToolbarProps<TData> = {
   table: Table<TData>
   collectors: { label: string; value: string }[]
 }
@@ -21,43 +23,51 @@ export function PaymentsTableToolbar<TData>({
   const { setPaymentMutationType, setIsUpsertPaymentDialogOpen } = usePaymentsStore()
 
   return (
-    <div className="flex md:items-center md:justify-between flex-col md:flex-row gap-2">
-      <div className="flex flex-1 items-center gap-2 flex-wrap">
-        <DataTableSearch table={table} searchField="customer" />
+    <div className="space-y-4 w-full">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <PaymentsStatusTabs />
 
-        {table.getColumn("entry_by") && (
-          <DataTableFacetedFilter
-            column={table.getColumn("entry_by")}
-            title="Collected By"
-            options={collectors}
-          />
-        )}
+        <div className="flex w-full md:w-auto items-center justify-between flex-col md:flex-row gap-4 md:gap-2">
+          <div className="flex flex-1 items-center gap-2 flex-wrap min-w-0">
+            <DataTableSearch table={table} searchField="customer" />
 
-        {isFiltered && (
-          <Button
-            variant="ghost"
-            onClick={() => table.resetColumnFilters()}
-            className="h-8 px-2 lg:px-3"
-          >
-            Reset
-            <X />
-          </Button>
-        )}
+            {table.getColumn("entry_by") && (
+              <DataTableFacetedFilter
+                column={table.getColumn("entry_by")}
+                title="Collected By"
+                options={collectors}
+              />
+            )}
+
+            {isFiltered && (
+              <Button
+                variant="ghost"
+                onClick={() => table.resetColumnFilters()}
+                className="h-8 px-2 lg:px-3"
+              >
+                Reset
+                <X className="ml-2 h-4 w-4" />
+              </Button>
+            )}
+          </div>
+        </div>
       </div>
 
-      <Button
-        onClick={() => {
-          setIsUpsertPaymentDialogOpen(true)
-          setPaymentMutationType("add")
-        }}
-        size="sm"
-        className="md:mr-2"
-      >
-        <Plus />
-        Add Payment
-      </Button>
+      <div className="flex items-center justify-between">
+        <PaymentsStats table={table} />
 
-      {/* <DataTableViewOptions table={table} /> */}
+        <Button
+          onClick={() => {
+            setIsUpsertPaymentDialogOpen(true)
+            setPaymentMutationType("add")
+          }}
+          size="sm"
+          className="shrink-0 md:ml-2"
+        >
+          <Plus className="mr-2 h-4 w-4" />
+          Add Payment
+        </Button>
+      </div>
     </div>
   )
 }
