@@ -3,26 +3,36 @@
 import type { Table } from "@tanstack/react-table"
 import type { Payment } from "@/types/payments"
 
-type PaymentsStatsProps<TData> = {
-  table: Table<TData>
+type PaymentsStatsProps = {
+  table: Table<Payment>
 }
 
-export function PaymentsStats<TData>({ table }: PaymentsStatsProps<TData>) {
+export function PaymentsStats({ table }: PaymentsStatsProps) {
   return (
-    <div className="flex items-center gap-4 text-sm font-medium border rounded-md px-4 py-1.5 bg-muted/20">
+    <div className="flex items-center gap-4 text-sm font-medium border rounded-md px-4 py-1.5 bg-muted/20 w-full md:w-auto">
       <div>
         Customers:{" "}
         <span className="text-muted-foreground">
           {
             new Set(
               table.getFilteredRowModel().rows.map((row) => {
-                const typedRow = row.original as Payment
+                const typedRow = row.original
                 return typedRow.customer?.uid || typedRow.customer?.id
               }),
             ).size
           }
         </span>
       </div>
+
+      <div className="w-[1px] h-4 bg-border"></div>
+
+      <div>
+        Total Payments:{" "}
+        <span className="text-muted-foreground">
+          {table.getFilteredRowModel().rows.length}
+        </span>
+      </div>
+
       <div className="w-[1px] h-4 bg-border"></div>
       <div>
         Total Bill Amount:{" "}
