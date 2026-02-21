@@ -3,13 +3,26 @@
 import type * as React from "react"
 
 import { cn } from "@/lib/utils"
+import { usePathname } from "next/navigation"
+
+
+function setTableHeight(pathname: string) {
+  
+  if (pathname === "/payments") {
+    return "max-h-[calc(100vh-235px)]"
+  }
+  return "max-h-[calc(100vh-185px)]"
+}
 
 function Table({ className, ...props }: React.ComponentProps<"table">) {
+
+  const pathname = usePathname()  
+
   return (
     <div
       data-slot="table-container"
-      className="relative w-full max-h-[calc(100vh-185px)] overflow-auto"
-    >
+      className={cn("relative w-full overflow-auto", setTableHeight(pathname))}
+    > 
       <table
         data-slot="table"
         className={cn("w-full caption-bottom text-sm ", className)}
