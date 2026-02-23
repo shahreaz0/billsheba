@@ -25,6 +25,7 @@ interface DataTableFacetedFilterProps<TData, TValue> {
     icon?: React.ComponentType<{ className?: string }>
   }[]
   defaultValues?: string[]
+  className?: string
 }
 
 export function DataTableFacetedFilter<TData, TValue>({
@@ -32,6 +33,7 @@ export function DataTableFacetedFilter<TData, TValue>({
   title,
   options,
   defaultValues = [],
+  className,
 }: Readonly<DataTableFacetedFilterProps<TData, TValue>>) {
   const facets = column?.getFacetedUniqueValues()
 
@@ -58,7 +60,11 @@ export function DataTableFacetedFilter<TData, TValue>({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline" size="sm" className="h-8 border-dashed">
+        <Button
+          variant="outline"
+          size="sm"
+          className={cn("h-8 border-dashed", className)}
+        >
           <PlusCircle />
           {title}
           {selectedValues.size > 0 && (
