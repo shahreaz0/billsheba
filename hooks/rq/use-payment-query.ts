@@ -11,7 +11,7 @@ import type { Payment, PaymentFilters, PaymentResponse } from "@/types/payments"
 
 export function getPaymentListOptions(filters: PaymentFilters) {
   return queryOptions({
-    queryKey: ["payments", "list", filters.year],
+    queryKey: ["payments", "list", filters.start_date, filters.end_date],
     queryFn: () => {
       return httpV1
         .request<PaymentResponse>({
@@ -20,7 +20,8 @@ export function getPaymentListOptions(filters: PaymentFilters) {
           params: {
             page: 1,
             page_size: 10_000,
-            ...filters,
+            start_date: filters.start_date,
+            end_date: filters.end_date,
           },
         })
         .then((res) => res.data)

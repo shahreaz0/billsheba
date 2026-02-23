@@ -55,7 +55,7 @@ export function PaymentsTable() {
 
   return (
     <div className="space-y-4">
-      <Suspense>
+      <Suspense fallback={null}>
         <PaymentsTableToolbar table={table} collectors={collectors} />
 
         <div className="block md:hidden">
