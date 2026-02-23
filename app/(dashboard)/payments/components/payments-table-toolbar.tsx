@@ -33,54 +33,60 @@ export function PaymentsTableToolbar({ table, collectors }: DataTableToolbarProp
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <PaymentsStatusTabs />
 
-        <div className="flex items-center gap-2 w-full md:w-auto">
+        <div className="flex flex-col md:flex-row items-center gap-2 w-full md:w-auto">
           <DataTableSearch
             table={table}
             searchField="customer"
-            className="flex-1 md:w-[200px]"
+            className="w-full md:w-[200px]"
           />
 
-          <DateRangePicker
-            date={{
-              from: paymentFilters.start_date
-                ? new Date(paymentFilters.start_date)
-                : undefined,
-              to: paymentFilters.end_date ? new Date(paymentFilters.end_date) : undefined,
-            }}
-            onDateChange={(date) => {
-              setPaymentFilters((prev) => ({
-                ...prev,
-                start_date: date?.from ? format(date.from, "yyyy-MM-dd") : "",
-                end_date: date?.to ? format(date.to, "yyyy-MM-dd") : "",
-              }))
-            }}
-          />
-
-          {table.getColumn("entry_by") && (
-            <DataTableFacetedFilter
-              column={table.getColumn("entry_by")}
-              title="Collected By"
-              options={collectors}
-            />
-          )}
-
-          {(isFiltered || paymentFilters.start_date || paymentFilters.end_date) && (
-            <Button
-              variant="ghost"
-              onClick={() => {
-                table.resetColumnFilters()
+          <div className="flex items-center gap-2 w-full md:w-auto">
+            <DateRangePicker
+              className="flex-1 md:w-auto"
+              date={{
+                from: paymentFilters.start_date
+                  ? new Date(paymentFilters.start_date)
+                  : undefined,
+                to: paymentFilters.end_date
+                  ? new Date(paymentFilters.end_date)
+                  : undefined,
+              }}
+              onDateChange={(date) => {
                 setPaymentFilters((prev) => ({
                   ...prev,
-                  start_date: "",
-                  end_date: "",
+                  start_date: date?.from ? format(date.from, "yyyy-MM-dd") : "",
+                  end_date: date?.to ? format(date.to, "yyyy-MM-dd") : "",
                 }))
               }}
-              className="h-8 px-2 lg:px-3"
-            >
-              Reset
-              <X className="ml-2 h-4 w-4" />
-            </Button>
-          )}
+            />
+
+            {table.getColumn("entry_by") && (
+              <DataTableFacetedFilter
+                column={table.getColumn("entry_by")}
+                title="Collected By"
+                options={collectors}
+                className="flex-1 md:w-auto"
+              />
+            )}
+
+            {(isFiltered || paymentFilters.start_date || paymentFilters.end_date) && (
+              <Button
+                variant="ghost"
+                onClick={() => {
+                  table.resetColumnFilters()
+                  setPaymentFilters((prev) => ({
+                    ...prev,
+                    start_date: "",
+                    end_date: "",
+                  }))
+                }}
+                className="h-8 px-2 lg:px-3"
+              >
+                Reset
+                <X className="ml-2 h-4 w-4" />
+              </Button>
+            )}
+          </div>
         </div>
       </div>
 
