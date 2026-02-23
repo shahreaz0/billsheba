@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { Suspense } from "react"
 import { PaymentsTable } from "./components/payments-table"
 
 export const metadata: Metadata = {
@@ -7,5 +8,9 @@ export const metadata: Metadata = {
 }
 
 export default async function PaymentsPage() {
-  return <PaymentsTable />
+  return (
+    <Suspense fallback={null}>
+      <PaymentsTable />
+    </Suspense>
+  )
 }

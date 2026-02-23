@@ -47,4 +47,6 @@ export type EntryBy = {
 export type PaymentFilters = {
   year: string
   status: string
+  start_date?: string
+  end_date?: string
 }

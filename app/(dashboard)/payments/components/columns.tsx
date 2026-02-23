@@ -74,6 +74,10 @@ export const columns: ColumnDef<Payment>[] = [
         </div>
       )
     },
+    filterFn: (row, id, value: string[]) => {
+      const rowValue = row.getValue(id) as string
+      return value.some((v) => rowValue.includes(v))
+    },
   },
   {
     accessorKey: "billing_month",

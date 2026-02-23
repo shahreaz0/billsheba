@@ -10,5 +10,7 @@ export const { useStore: usePaymentsStore, reset: resetPaymentsStore } = createS
   paymentFilters: {
     year: new Date().getFullYear().toString(),
     status: "all",
+    start_date: "",
+    end_date: "",
   },
 })
