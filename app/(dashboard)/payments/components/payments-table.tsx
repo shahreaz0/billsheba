@@ -1,10 +1,12 @@
 "use client"
 
+import { CircleCheckIcon, CircleXIcon } from "lucide-react"
 import React, { Suspense } from "react"
 import { DataTableCardView } from "@/components/data-table/data-table-card-view"
 import { useDataTable } from "@/components/data-table/use-data-table"
+import { Badge } from "@/components/ui/badge"
 import { useGetPaymentList } from "@/hooks/rq/use-payment-query"
-import { generateAvatarUrl } from "@/lib/utils"
+import { cn, generateAvatarUrl } from "@/lib/utils"
 import { usePaymentsStore } from "@/stores/payments-store"
 import { columns } from "./columns"
 import { PaymentsTableRowActions } from "./payments-table-row-actions"
@@ -68,9 +70,25 @@ export function PaymentsTable() {
               const collectorName = `${p.entry_by?.last_name || "unknown"}`
               return {
                 title: p.customer.username || p.customer.name,
-                description: `Collected By ${collectorName} · ${p.amount} ${p.payment_method}`,
+                description: `Collected By ${collectorName} · ${p.payment_method}`,
                 avatar: generateAvatarUrl(p.customer.username || p.customer.name),
                 uid: p.uid,
+                side: (
+                  <div className="flex flex-col items-end gap-1">
+                    <span className="font-medium">৳{p.amount}</span>
+                    <Badge
+                      variant="secondary"
+                      className={cn(
+                        p.paid
+                          ? "bg-emerald-500 text-white dark:bg-emerald-600"
+                          : "bg-red-500 text-white dark:bg-red-600",
+                      )}
+                    >
+                      {p.paid ? <CircleCheckIcon /> : <CircleXIcon />}
+                      {p.paid ? "Paid" : "Unpaid"}
+                    </Badge>
+                  </div>
+                ),
               }
             }}
             renderRowActions={(row) => <PaymentsTableRowActions row={row} />}

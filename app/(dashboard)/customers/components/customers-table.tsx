@@ -1,12 +1,14 @@
 "use client"
 
+import { BadgeCheckIcon, BadgeXIcon } from "lucide-react"
 import * as React from "react"
 import { DataTableCardView } from "@/components/data-table/data-table-card-view"
 import { useDataTable } from "@/components/data-table/use-data-table"
+import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useGetCustomerList } from "@/hooks/rq/use-customers-query"
 import { useGetOrganizationList } from "@/hooks/rq/use-organizations-query"
-import { generateAvatarUrl } from "@/lib/utils"
+import { cn, generateAvatarUrl } from "@/lib/utils"
 import { useCustomersStore } from "@/stores/customers-store"
 import { columns } from "./columns"
 import { CustomersTableRowActions } from "./customers-table-row-actions"
@@ -70,6 +72,26 @@ export function CustomersTable() {
               description: customer.username,
               avatar: generateAvatarUrl(customer.username || customer.name),
               uid: customer.uid,
+              side: (
+                <div className="flex flex-col items-end gap-1">
+                  {customer.package && (
+                    <span className="font-medium text-xs">
+                      {customer.package.price} BDT
+                    </span>
+                  )}
+                  <Badge
+                    variant="secondary"
+                    className={cn(
+                      customer.is_active
+                        ? "bg-emerald-500 text-white dark:bg-emerald-600"
+                        : "bg-red-500 text-white dark:bg-red-600",
+                    )}
+                  >
+                    {customer.is_active ? <BadgeCheckIcon /> : <BadgeXIcon />}
+                    {customer.is_active ? "Active" : "Inactive"}
+                  </Badge>
+                </div>
+              ),
             }
           }}
           renderRowActions={(row) => <CustomersTableRowActions row={row} />}

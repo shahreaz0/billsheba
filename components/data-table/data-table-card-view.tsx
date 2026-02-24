@@ -20,6 +20,7 @@ export type CardItem = {
   title: string
   description?: string
   avatar?: string
+  side?: React.ReactNode
 }
 
 type ItemWithRow<TData> = {
@@ -45,7 +46,7 @@ export function DataTableCardView<TData>({
   renderItemActions,
   onItemClick,
   loading,
-}: Props<TData>) {
+}: Readonly<Props<TData>>) {
   const list: ItemWithRow<TData>[] = React.useMemo(() => {
     if (table && mapRow) {
       return table.getFilteredRowModel().rows.map((row) => ({ item: mapRow(row), row }))
@@ -58,7 +59,7 @@ export function DataTableCardView<TData>({
       <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {Array.from({ length: 8 }).map((_, index) => (
           <div
-            key={index}
+            key={`skeleton-${index}`}
             className="animate-pulse space-y-3 rounded-md border bg-white p-4 shadow-sm"
           >
             <div className="h-10 w-10 rounded-full bg-slate-200" />
@@ -99,6 +100,11 @@ export function DataTableCardView<TData>({
                 {item.description}
               </ItemDescription>
             </ItemContent>
+
+            {item.side && (
+              <ItemContent className="items-end gap-1">{item.side}</ItemContent>
+            )}
+
             <ItemActions onClick={(e) => e.stopPropagation()}>
               {row && renderRowActions ? (
                 renderRowActions(row)
