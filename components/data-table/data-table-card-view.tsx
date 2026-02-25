@@ -14,6 +14,7 @@ import {
   ItemSeparator,
   ItemTitle,
 } from "@/components/ui/item"
+import { cn } from "@/lib/utils"
 
 export type CardItem = {
   uid: string
@@ -78,34 +79,34 @@ export function DataTableCardView<TData>({
       {list.map(({ item, row }, index) => (
         <React.Fragment key={item.uid}>
           <Item
-            className={
-              onItemClick ? "cursor-pointer hover:bg-muted/50 transition-colors" : ""
-            }
+            size="sm"
+            className={cn(
+              "flex-nowrap px-0",
+              onItemClick ? "cursor-pointer hover:bg-muted/50 transition-colors" : "",
+            )}
             onClick={() => {
               onItemClick?.(item, row)
             }}
           >
             {item.avatar ? (
-              <ItemMedia>
-                <Avatar className="rounded-md">
+              <ItemMedia className="hidden min-[375px]:flex">
+                <Avatar className="h-9 w-9 rounded-md">
                   <AvatarImage src={item.avatar} />
                   <AvatarFallback>{item.title.charAt(0)}</AvatarFallback>
                 </Avatar>
               </ItemMedia>
             ) : null}
 
-            <ItemContent className="gap-1">
-              <ItemTitle>{item.title}</ItemTitle>
-              <ItemDescription className="w-40 truncate">
-                {item.description}
-              </ItemDescription>
+            <ItemContent className="min-w-0 gap-1">
+              <ItemTitle className="block truncate">{item.title}</ItemTitle>
+              <ItemDescription className="truncate">{item.description}</ItemDescription>
             </ItemContent>
 
             {item.side && (
-              <ItemContent className="items-end gap-1">{item.side}</ItemContent>
+              <ItemContent className="min-w-0 items-end gap-1">{item.side}</ItemContent>
             )}
 
-            <ItemActions onClick={(e) => e.stopPropagation()}>
+            <ItemActions className="shrink-0" onClick={(e) => e.stopPropagation()}>
               {row && renderRowActions ? (
                 renderRowActions(row)
               ) : renderItemActions ? (
