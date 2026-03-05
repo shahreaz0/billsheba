@@ -39,6 +39,8 @@ type Props<TData> = {
   loading?: boolean
 }
 
+const SKELETON_KEYS = ["sk-a", "sk-b", "sk-c", "sk-d", "sk-e", "sk-f", "sk-g", "sk-h"]
+
 export function DataTableCardView<TData>({
   items,
   table,
@@ -58,9 +60,9 @@ export function DataTableCardView<TData>({
   if (loading) {
     return (
       <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {Array.from({ length: 8 }).map((_, index) => (
+        {SKELETON_KEYS.map((key) => (
           <div
-            key={`skeleton-${index}`}
+            key={key}
             className="animate-pulse space-y-3 rounded-md border bg-white p-4 shadow-sm"
           >
             <div className="h-10 w-10 rounded-full bg-slate-200" />
@@ -107,15 +109,15 @@ export function DataTableCardView<TData>({
             )}
 
             <ItemActions className="shrink-0" onClick={(e) => e.stopPropagation()}>
-              {row && renderRowActions ? (
-                renderRowActions(row)
-              ) : renderItemActions ? (
-                renderItemActions(item)
-              ) : (
-                <Button variant="ghost" size="icon" className="rounded-full">
-                  <svg className="h-4 w-4" />
-                </Button>
-              )}
+              {(() => {
+                if (row && renderRowActions) return renderRowActions(row)
+                if (renderItemActions) return renderItemActions(item)
+                return (
+                  <Button variant="ghost" size="icon" className="rounded-full">
+                    <svg className="h-4 w-4" />
+                  </Button>
+                )
+              })()}
             </ItemActions>
           </Item>
           {index !== list.length - 1 && <ItemSeparator />}
