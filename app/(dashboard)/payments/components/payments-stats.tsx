@@ -25,7 +25,12 @@ export function PaymentsStats({ table }: PaymentsStatsProps) {
           {table
             .getFilteredRowModel()
             .rows.reduce((sum, row) => {
-              const typedRow = row.original as Payment
+              const typedRow = row.original
+
+              if (typedRow.paid) {
+                return sum + (Number(typedRow.amount) || 0)
+              }
+
               return sum + (Number(typedRow.bill_amount) || 0)
             }, 0)
             .toLocaleString()}
